@@ -1,0 +1,33 @@
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+@import "./vendors/chatwindow";
+// @import "./base/";
+@import "./layout/header";
+@import "./layout/footer";
+@import "./layout/navigation";
+@import "./layout/sidebar";
+@import "./components/buttons";
+@import "./pages/home";
+@import "./pages/holiday";
+@import "./pages/employee";
+@import "./pages/event";
+@import "./pages/attendance";
+@import "./pages/project";
+@import "./pages/prdashboard";
+
+*{
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body{
+    &::-webkit-scrollbar{
+        width: 9px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: $secondary-color;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: $third-color;
+    }
+}

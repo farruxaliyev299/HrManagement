@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220731173737_CreateHolidaysTable.cs" />
+    <Compile Remove="Migrations\20220731173737_CreateHolidaysTable.Designer.cs" />
+    <Compile Remove="Migrations\20220731231024_CreateHolidaysTable.cs" />
+    <Compile Remove="Migrations\20220731231024_CreateHolidaysTable.Designer.cs" />
+    <Compile Remove="Migrations\20220731231340_CreateHolidaysTable.cs" />
+    <Compile Remove="Migrations\20220731231340_CreateHolidaysTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805144638_CreateEmployeeUsersTable.cs" />
+    <Compile Remove="Migrations\20220805144638_CreateEmployeeUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805145214_CreateEmployeesTable.cs" />
+    <Compile Remove="Migrations\20220805145214_CreateEmployeesTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805154024_CreateEmployeesTable.cs" />
+    <Compile Remove="Migrations\20220805154024_CreateEmployeesTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805154121_CreateEmployeesTable.cs" />
+    <Compile Remove="Migrations\20220805154121_CreateEmployeesTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805160953_CreateGendersTable.cs" />
+    <Compile Remove="Migrations\20220805160953_CreateGendersTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805161210_CreateEmployeeUsersTable.cs" />
+    <Compile Remove="Migrations\20220805161210_CreateEmployeeUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805161529_CreateEmployeeUsersTable.cs" />
+    <Compile Remove="Migrations\20220805161529_CreateEmployeeUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805161638_CreateEmployeeUsersTable.cs" />
+    <Compile Remove="Migrations\20220805161638_CreateEmployeeUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20220805201817_UpdateTable.cs" />
+    <Compile Remove="Migrations\20220805201817_UpdateTable.Designer.cs" />
+    <Compile Remove="Migrations\20220807204606_CreateDepartmentsTable.cs" />
+    <Compile Remove="Migrations\20220807204606_CreateDepartmentsTable.Designer.cs" />
+    <Compile Remove="Migrations\20220808190040_CreateAttendancesTable.cs" />
+    <Compile Remove="Migrations\20220808190040_CreateAttendancesTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\sass\base\" />
+    <Folder Include="wwwroot\assets\sass\themes\" />
+  </ItemGroup>
+
+</Project>

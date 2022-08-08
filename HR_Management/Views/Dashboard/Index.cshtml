@@ -1,0 +1,422 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Indexes start-->
+<section id="hr-dashboard" class="dashboard">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Dashboard</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="col-xl-6 col-12">
+                    <div class="dl-table table-responsive">
+                        <div class="table-header d-flex justify-content-between">
+                            <h5>To Do List</h5>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Add
+                            </button>
+                        </div>
+                        <table class="do-list">
+                            <tbody>
+                                <tr class="d-flex">
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <div>
+                                            <p>Daily Standup Meeting</p>
+                                            <p class="faded">Due in 2 days</p>
+                                        </div>
+                                    </td>
+                                    <td class="d-flex actions">
+                                        <div class="yellow">
+                                            <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModaledit" class="in-progress">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-pen-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="red">
+                                            <a href="#" class="rejected">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-trash2-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <div>
+                                            <p>Daily Standup Meeting2</p>
+                                            <p class="faded">Due in 2 days</p>
+                                        </div>
+                                    </td>
+                                    <td class="d-flex actions">
+                                        <div class="yellow">
+                                            <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModaledit" class="in-progress">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-pen-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="red">
+                                            <a href="#" class="rejected">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-trash2-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <div>
+                                            <p>Daily Standup Meeting3</p>
+                                            <p class="faded">Due in 2 days</p>
+                                        </div>
+                                    </td>
+                                    <td class="d-flex actions">
+                                        <div class="yellow">
+                                            <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModaledit" class="in-progress">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-pen-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="red">
+                                            <a href="#" class="rejected">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-trash2-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <div>
+                                            <p>Daily Standup Meeting4</p>
+                                            <p class="faded">Due in 2 days</p>
+                                        </div>
+                                    </td>
+                                    <td class="d-flex actions">
+                                        <div class="yellow">
+                                            <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModaledit" class="in-progress">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-pen-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="red">
+                                            <a href="#" class="rejected">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-trash2-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <div>
+                                            <p>Daily Standup Meeting5</p>
+                                            <p class="faded">Due in 2 days</p>
+                                        </div>
+                                    </td>
+                                    <td class="d-flex actions">
+                                        <div class="yellow">
+                                            <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModaledit" class="in-progress">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-pen-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="red">
+                                            <a href="#" class="rejected">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     fill="currentColor" class="bi bi-trash2-fill"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12">
+                    <div class="dl-table table-responsive">
+                        <div class="table-header d-flex justify-content-between">
+                            <h5>Emp Statistics</h5>
+                        </div>
+                        <table class="es-table">
+                            <tbody>
+                                <tr class="d-flex yellow">
+                                    <td>
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"
+                                                 fill="#ffce6f" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            </svg>
+                                            <p>New Employee</p>
+                                        </div>
+                                    </td>
+                                    <td class="status">
+                                        <span class="in-progress">22</span>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex green">
+                                    <td>
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"
+                                                 fill="#2dbaa5" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                <path fill-rule="evenodd"
+                                                      d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                            </svg>
+                                            <p>Total Employee</p>
+                                        </div>
+                                    </td>
+                                    <td class="status">
+                                        <span class="success">331</span>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex red">
+                                    <td>
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"
+                                                 fill="#f66064" class="bi bi-bank2" viewBox="0 0 16 16">
+                                                <path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916l-7.5-5zM12.375 6v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1H.5z" />
+                                            </svg>
+                                            <p>Total Salary</p>
+                                        </div>
+                                    </td>
+                                    <td class="status">
+                                        <span class="rejected">$2.8M</span>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex purple">
+                                    <td>
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54"
+                                                 fill="#3445e5" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                                                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
+                                            </svg>
+                                            <p>Avg. Salary</p>
+                                        </div>
+                                    </td>
+                                    <td class="status">
+                                        <span class="approved">$1.250</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 col-12">
+                    <div class="dl-table">
+                        <div class="table-header d-flex justify-content-between">
+                            <h5>Total Salary by Unit</h5>
+                        </div>
+                        <canvas id="line-chart" width="800" height="450"></canvas>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-12">
+                    <div class="dl-table">
+                        <div class="table-header d-flex justify-content-between">
+                            <h5>Income Analysis</h5>
+                        </div>
+                        <canvas id="doughnut-chart" width="1000px" height="562.5px">
+                        </canvas>
+                        <div class="percentages">
+                            <div class="percentage-item d-flex yellow">
+                                <p class="in-progress">Design</p>
+                                <span class="in-progress">84.60%</span>
+                            </div>
+                            <div class="percentage-item d-flex purple">
+                                <p class="approved">Developer</p>
+                                <span class="approved">15.40%</span>
+                            </div>
+                            <div class="percentage-item d-flex red">
+                                <p class="rejected">CEO</p>
+                                <span class="rejected">5.10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-12">
+                    <div class="dl-table">
+                        <div class="table-header d-flex justify-content-between">
+                            <h5>Gender Distirbution</h5>
+                        </div>
+                        <canvas id="pie-chart" width="800" height="450"></canvas>
+                        <div class="percentages">
+                            <div class="percentage-item d-flex green">
+                                <p class="success">Male</p>
+                                <span class="success">56%</span>
+                            </div>
+                            <div class="percentage-item d-flex yellow">
+                                <p class="in-progress">Female</p>
+                                <span class="in-progress">44%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-8 col-12">
+                    <div class="dl-table table-responsive">
+                        <div class="table-header mm-head d-flex justify-content-between">
+                            <h5>Agents Stats</h5>
+                        </div>
+                        <table class="table mb-table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="avatar">
+                                        <img src="~/assets/images/user-photo.jpg">
+                                    </td>
+                                    <td class="name">Marshall Nichols</td>
+                                    <td class="designation">
+                                        UI UX Designer
+                                    </td>
+                                    <td class="performance">
+                                        <div class="d-inline-block green">
+                                            <span class="success">Good</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="avatar">
+                                        <img src="~/assets/images/user-photo.jpg">
+                                    </td>
+                                    <td class="name">Susie Willis</td>
+                                    <td class="designation">
+                                        Designer
+                                    </td>
+                                    <td class="performance">
+                                        <div class="d-inline-block yellow">
+                                            <span class="in-progress">Average</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="avatar">
+                                        <img src="~/assets/images/user-photo.jpg">
+                                    </td>
+                                    <td class="name">Francisco Vasquez</td>
+                                    <td class="designation">
+                                        Team Leader
+                                    </td>
+                                    <td class="performance">
+                                        <div class="d-inline-block red">
+                                            <span class="rejected">Weak</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="avatar">
+                                        <img src="~/assets/images/user-photo.jpg">
+                                    </td>
+                                    <td class="name">Erin Gonzales</td>
+                                    <td class="designation">
+                                        Android Developer
+                                    </td>
+                                    <td class="performance">
+                                        <div class="d-inline-block green">
+                                            <span class="success">Good</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="avatar">
+                                        <img src="~/assets/images/user-photo.jpg">
+                                    </td>
+                                    <td class="name">Ava Alexander</td>
+                                    <td class="designation">
+                                        UI UX Designer
+                                    </td>
+                                    <td class="performance">
+                                        <div class="d-inline-block yellow">
+                                            <span class="in-progress">Average</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Indexes end-->
+@section ScriptDashboard{
+<script src="~/assets/js/dolist.js"></script>
+<!--vendor JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="~/assets/js/vendors/linechart.js"></script>
+<script src="~/assets/js/vendors/doughnutchart.js"></script>
+<script src="~/assets/js/vendors/piechart.js"></script>
+}

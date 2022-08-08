@@ -1,0 +1,134 @@
+//profile header
+
+.employee-photo{
+    img{
+        width: 180px;
+    }
+}
+
+.card-body{
+    padding: 29.25px;
+    gap: 15px;
+}
+
+.date-now{
+    padding: 8px;
+    background-color: $third-color;
+    color: white;
+    border-radius: 0.42rem;
+}
+
+.employee-information{
+    height: 183.89px;
+    width: 100%;
+    .employee-name{
+        align-items: center;
+        h4{
+            margin: 0;
+            font-size: $fs-28;
+        }
+    }
+    .employee-detailed{
+        gap: 10px;
+        align-items: center;
+        p{
+            margin: 0;
+        }
+        .employee-location{
+            align-items: center;
+        }
+        .employee-mail{
+            align-items: center;
+            gap: 5px;
+        }
+    }
+    .employee-statistic{
+        gap: 10px;
+        flex-wrap: wrap;
+        @include background-pallete;
+        .statistic-item{
+            width: 150px;
+            padding: 10px 19px;
+            border-radius: 0.42rem;
+        }
+    }
+    h4{
+        font-size: $fs-22;
+        margin: 0;
+    }
+}
+
+
+
+// .online-status{
+//     position: absolute;
+//     // top: 2vh;
+//     // right: 1vw;
+//     // z-index: 999;
+//     // display: inline-block;
+//     // padding: 1.5px;
+//     // background-color: white;
+//     // border-radius: 50%;
+// }
+
+//profile details
+.profile-details-header{
+    padding: 15px 29.25px !important;
+    border-bottom: 2px solid $third-color;
+    h4{
+        margin: 0;
+    }
+}
+
+.detail-item{
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0px 30px 0px;
+    @include text-palette;
+    @include background-pallete;
+    p{
+        margin: 0;
+    }
+    .detail-value{
+        width: 60%;
+    }
+    .approved{
+        background-color: white !important;
+    }
+}
+
+//request table
+
+.leave-table{
+    padding-top: 29.25px;
+    @include text-palette;
+    .approved{
+        background-color: white;
+    }
+}
+
+.warning-table{
+    padding-top: 29.25px;
+    @include text-palette;
+}
+
+@media screen and (max-width: 992px) {
+    .card-body{
+        display: block !important;
+    }
+    .employee-name{
+        display: inline-block !important;
+        .date-now{
+            margin-top: 10px;
+        }
+    }
+    .employee-information{
+        margin-top: 20px;
+    }
+    .employee-photo{
+        img{
+            width: 100px !important;
+            height: 100px !important;
+        }
+    }
+}

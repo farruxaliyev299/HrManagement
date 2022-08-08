@@ -1,0 +1,84 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Create";
+}
+<!--Index start-->
+<section id="hr-addproject">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Create</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="dl-table table-responsive pb-3 col-12">
+                    <form class="row g-3" method="post" enctype="multipart/form-data">
+                        <div class="input-group date w-100 justify-content-between">
+                            <div class="col-6 p-1">
+                                <input asp-for="EventTitle" class="form-control" placeholder="Event Title">
+                                <span asp-validation-for="EventTitle" class="text-danger mt-1"></span>
+                            </div>
+                            <div class="col-6 p-1">
+                                <input asp-for="EventLocation" class="form-control" placeholder="Event Location">
+                                <span asp-validation-for="EventLocation" class="text-danger mt-1"></span>
+                            </div>
+                        </div>
+                        <div class="date w-100">
+                            <div>
+                                <label asp-for="StartDate">Start Date</label>
+                                <input asp-for="StartDate" type="date" class="form-control" placeholder="Status Name">
+                            </div>
+                        </div>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                        <div class="date w-100">
+                            <div>
+                                <label asp-for="EndDate">End Date</label>
+                                <input asp-for="EndDate" type="date" class="form-control" placeholder="Status Name">
+                            </div>
+                        </div>
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                        <div class="input-group gap-0 mt-3 justify-content-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a type="button" class="btn btn-secondary" asp-action="Index">Close</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Index end-->
+@section CssEvent{
+<!-- calendar -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link href='~/assets/fullcalendar/packages/core/main.css' rel='stylesheet' />
+<link href='~/assets/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+}
+
+@section ScriptEvent{
+<!-- calendar -->
+<script src="~/assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/assets/js/popper.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/fullcalendar//packages/core/main.js"></script>
+<script src="~/assets/fullcalendar//packages/interaction/main.js"></script>
+<script src='~/assets/fullcalendar//packages/daygrid/main.js'></script>
+<script src="~/assets/js/vendors/calendar.js"></script>
+}
+
+
+

@@ -1,0 +1,121 @@
+.navbar-toggler{
+    border: none;
+    &:focus{
+        outline: none!important;
+    }
+}
+
+.add-member{
+    color: #2dbaa5!important;
+    background-color: #c9f7f5!important;
+    transition-duration: .15s;
+    svg{
+        transition-duration: .15s;
+    }
+    &:hover{
+        background-color: #2dbaa5!important;
+        color: white!important;
+        svg{
+            fill: #ffff;
+        }
+    }
+}
+
+.page-link{
+    background-color: #3445e5 !important;
+    color: white!important;
+}
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+.dl-table{
+    a{
+        &:hover{
+            background-color: #23309c ;
+        }
+    }
+    button{
+        margin: 17px;
+        background-color: $third-color;
+        color: white;
+        border: none;
+        &:hover{
+            background-color: #23309c ;
+        }
+    }
+}
+
+.actions{
+    @include text-palette;
+    @include background-pallete;
+    gap: 10px;
+    a{
+        padding: 5px;
+    }
+    .yellow{
+        border-radius: 0.42rem;
+        a{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #ffa800;
+                color: white;
+            }
+        }
+        button{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #ffa800;
+                color: white;
+            }
+        }
+    }
+    .red{
+        border-radius: 0.42rem;
+        a{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #f66064;
+                color: white;
+            }
+        }
+        button{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #f66064;
+                color: white;
+            }
+        }
+    }
+    .green{
+        border-radius: 0.42rem;
+        a{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #2dbaa5;
+                color: white;
+            }
+        }
+        button{
+            transition-duration: .15s;
+            &:hover{
+                background-color: #2dbaa5;
+                color: white;
+            }
+        }
+    }
+    .grey{
+        border-radius: 0.42rem;
+        a{
+            transition-duration: .15s;
+            &:hover{
+                background-color: $fourth-color;
+                color: white;
+            }
+        }
+    }
+}
+

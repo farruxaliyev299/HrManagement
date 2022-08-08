@@ -1,0 +1,52 @@
+.navbar{
+    background-color: $primary-color!important;
+    padding: 15px 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+}
+
+.container-fluid{
+    padding: 0px 35px;
+}
+
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+.dropdown-menu[data-bs-popper]{
+    top: 135%;
+    left: -420%;
+}
+
+.navbar-nav{
+    gap: 10px;
+}
+
+.navbar-brand{
+    color: white;
+    font-size: 24px;
+    img{
+        width: 40px;
+        height: 32px;
+        margin: 0px 3px;
+    }
+    &:hover{
+        color: white;
+    }
+}
+
+.nav-link{
+    border-radius: 5px;
+    &:hover{
+        background-color: $secondary-color;
+    }
+}
+
+.cog{
+    transition-duration: .1s;
+    &:hover{
+        transform: rotate(60deg);
+    }
+}
+

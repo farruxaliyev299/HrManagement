@@ -1,0 +1,110 @@
+﻿@model EventVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!--Index start-->
+<section class="hr-events">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Events</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="col-lg-8 m-0">
+                    <div class="card">
+                        <div id='calendar' class="lc-wrapper"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 m-0">
+                    <div class="card card-modal mb-3">
+                        <a type="button" class="btn btn-primary" asp-action="Create">
+                            Add New Event
+                        </a>
+                    </div>
+                    <div class="card card-event mb-3">
+                        @foreach (var item in Model.Events)
+                        {
+                            <div class="card-body">
+                                <div class="event-name row g-2">
+                                    <div class="col-2 text-center">
+                                        <h6>@item.StartDate.Day<span class="d-block">@item.StartDate.ToString("MMM")</span><span class="d-block">@item.StartDate.Year</span></h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-0">@item.EventTitle</h6>
+                                        <address>
+                                            <i class="fa fa-map-marker"></i> @item.EventLocation
+                                        </address>
+                                    </div>
+                                    <div class="col-2 actions">
+                                        <div class="red d-inline">
+                                            <a class="rejected" asp-action="Delete" asp-route-id="@item.Id">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 fill="currentColor" class="bi bi-trash2-fill"
+                                                 viewBox="0 0 16 16">
+                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Index end-->
+@section CssEvent{
+<!-- calendar -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link href='~/assets/fullcalendar/packages/core/main.css' rel='stylesheet' />
+<link href='~/assets/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+}
+
+@section ScriptEvent{
+<!-- calendar -->
+<script src="~/assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/assets/js/popper.min.js"></script>
+<script src="~/assets/js/bootstrap.min.js"></script>
+<script src="~/assets/fullcalendar//packages/core/main.js"></script>
+<script src="~/assets/fullcalendar//packages/interaction/main.js"></script>
+<script src='~/assets/fullcalendar//packages/daygrid/main.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['dayGrid'],
+        editable: true,
+        events: [
+            @foreach (var item in @Model.Events)
+            {
+                var startDateFormat = item.StartDate.ToString("yyyy") + "-" + item.StartDate.ToString("MM") + "-" + item.StartDate.ToString("dd") ;
+                var endDateFormat = item.EndDate.ToString("yyyy") + "-" + item.EndDate.ToString("MM") + "-" + item.EndDate.ToString("dd") ;
+                @Html.Raw("{ title : " + Json.Serialize(item.EventTitle) + ", start :" + Json.Serialize(startDateFormat) + ",end : " + Json.Serialize(endDateFormat) + "},");
+            }
+        ]
+    });
+
+    calendar.render();
+});
+</script>
+}
