@@ -38,16 +38,26 @@ namespace HR_Management.Controllers
         public IActionResult Index()
         {
             ViewBag.ActivePage = "employees";
+            ViewBag.DepCheck = _context.Departments.Count() > 0;
             List<EmployeeUser> employees = _userManager.Users.Include(user => user.Status).Include(user => user.Gender).Include(user=> user.Department).Where(user => !user.IsQuitted).ToList();
             return View(employees);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Status = _context.Statuses.ToList();
-            ViewBag.Gender = _context.Genders.ToList();
-            ViewBag.Department = _context.Departments.ToList();
-            return View();
+            if(_context.Departments.Count() > 0)
+            {
+                ViewBag.Status = _context.Statuses.ToList();
+                ViewBag.Gender = _context.Genders.ToList();
+                ViewBag.Department = _context.Departments.ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
 
         [HttpPost]
@@ -154,10 +164,18 @@ namespace HR_Management.Controllers
             if (!employeeUser.Photo.CheckSize(300))
             {
                 ModelState.AddModelError("Photo", "Image size must be less than 300kb");
+                ViewBag.Status = _context.Statuses.ToList();
+                ViewBag.Gender = _context.Genders.ToList();
+                ViewBag.Department = _context.Departments.ToList();
+                return View(employeeUser);
             }
             if (!employeeUser.Photo.CheckType())
             {
                 ModelState.AddModelError("Photo", "Type of file must be an image");
+                ViewBag.Status = _context.Statuses.ToList();
+                ViewBag.Gender = _context.Genders.ToList();
+                ViewBag.Department = _context.Departments.ToList();
+                return View(employeeUser);
             }
             string userName = string.Empty;
             for (int i = 0; i < employeeUser.FullName.Length; i++)
@@ -179,13 +197,24 @@ namespace HR_Management.Controllers
                 Gender = employeeUser.Gender,
                 StatusId = employeeUser.StatusId,
                 Status = employeeUser.Status,
+                DepartmentId = employeeUser.DepartmentId,
+                Department = employeeUser.Department,
                 PhoneNumber = employeeUser.PhoneNumber,
                 IdSerialNo = employeeUser.SerialNo,
                 FIN = employeeUser.FIN,
                 Salary = employeeUser.Salary,
+                IsHead = employeeUser.IsHead,
                 ProfilePhoto = await employeeUser.Photo.SaveFileAsync(_env.WebRootPath, "assets", "images", "userPhotos"),
                 JoinDate = DateTime.UtcNow
             };
+            if (_context.Users.Any(user => user.IsHead && employeeUser.IsHead && user.DepartmentId == employeeUser.DepartmentId))
+            {
+                ModelState.AddModelError("IsHead", "Ther can be only one Head in each Department!");
+                ViewBag.Status = _context.Statuses.ToList();
+                ViewBag.Gender = _context.Genders.ToList();
+                ViewBag.Department = _context.Departments.ToList();
+                return View(employeeUser);
+            }
             var identityResult = await _userManager.CreateAsync(newEmployee, employeeUser.Password);
             if (!identityResult.Succeeded)
             {
@@ -198,7 +227,8 @@ namespace HR_Management.Controllers
                 ViewBag.Department = _context.Departments.ToList();
                 return View(employeeUser);
             }
-            await _userManager.AddToRoleAsync(newEmployee, "HR Admin");
+
+            await _userManager.AddToRoleAsync(newEmployee, "Employee");
             return RedirectToAction("Index");
         }
 

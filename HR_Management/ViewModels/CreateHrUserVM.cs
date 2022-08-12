@@ -41,6 +41,11 @@ namespace HR_Management.ViewModels
         public int StatusId { get; set; }
         public Status Status { get; set; }
 
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+
+        public bool IsHead { get; set; }
+
         [NotMapped, Required]
         public IFormFile Photo { get; set; }
     }

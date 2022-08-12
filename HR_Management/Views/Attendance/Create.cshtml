@@ -1,0 +1,104 @@
+﻿@model AttendanceVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--Index start-->
+<section class="hr-employee">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Employees</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="dl-table table-responsive col-12">
+                    <table class="table" id="sortTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Employee</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form method="post">
+                                @for (int i = 0; i < @Model.Employees.Count(); i++)
+                                {
+
+                                <tr>
+                                    <input type="hidden" asp-for="@Model.Employees[i].Id" value="@Model.Employees[i].Id" />
+                                    <td>
+                                        <img src="~/assets/images/userPhotos/@Model.Employees[i].ProfilePhoto">
+                                    </td>
+                                    <td>@Model.Employees[i].FullName</td>
+                                    <td>@Model.Employees[i].Department.DepartmentName</td>
+                                    <td class="actions">
+                                        <div class="input-group gap-3 mt-3">
+                                            <div class="form-check form-check-inline gap-2">
+                                                <div class="attendance-inputs">
+                                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                        @Html.RadioButtonFor(db => db.Attendances[i].AttendanceStatus, "True")
+                                                    <label class="form-check-label" for="inlineRadio1">No</label>
+                                                        @Html.RadioButtonFor(db => db.Attendances[i].AttendanceStatus, "False")
+                                                    <input type="hidden" asp-for="Attendances[i].EmployeeId" value="@Model.Employees[i].Id">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    </td>
+                                </tr>
+                                }
+                            <div class="input-group gap-0 mt-3 justify-content-center">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                                <a type="button" class="btn btn-secondary" asp-action="Index">Close</a>
+                            </div>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Index end-->
+@section CssEmployee{
+<!--Bootstrap links for Data Table-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+}
+
+@section ScriptEmployee{
+<!--vendor JS-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
+<!--Data tables-->
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
+</script>
+<script>
+    $('#sortTable').DataTable();
+
+    $('input').each(input => input.attr("checked");)
+</script>
+}

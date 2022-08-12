@@ -16,5 +16,7 @@ namespace HR_Management.DAL
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
     }
 }

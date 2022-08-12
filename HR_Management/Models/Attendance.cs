@@ -8,6 +8,6 @@ namespace HR_Management.Models
         public DateTime Date { get; set; }
         public string EmployeeId { get; set; }
         public EmployeeUser Employee { get; set; }
-        public bool AttendanceStatus { get; set; }
+        public bool? AttendanceStatus { get; set; }
     }
 }

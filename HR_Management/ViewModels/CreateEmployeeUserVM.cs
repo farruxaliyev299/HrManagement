@@ -8,13 +8,13 @@ namespace HR_Management.ViewModels
 {
     public class CreateEmployeeUserVM
     {
-        [Required , MaxLength(30)]
+        [Required, MaxLength(30)]
         public string FullName { get; set; }
 
         [Required]
         public string Password { get; set; }
 
-        [Required , DataType(DataType.EmailAddress)]
+        [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required, DataType(DataType.Date)]
@@ -26,7 +26,7 @@ namespace HR_Management.ViewModels
         [Required, MaxLength(9)]
         public string SerialNo { get; set; }
 
-        [Required , DataType(DataType.PhoneNumber)]
+        [Required, DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -46,7 +46,7 @@ namespace HR_Management.ViewModels
 
         public bool IsHead { get; set; }
 
-        [NotMapped , Required]
+        [NotMapped, Required]
         public IFormFile Photo { get; set; }
     }
 }

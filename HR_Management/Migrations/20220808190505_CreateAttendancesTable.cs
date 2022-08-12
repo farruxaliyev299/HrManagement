@@ -15,7 +15,7 @@ namespace HR_Management.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(nullable: false),
                     EmployeeId = table.Column<string>(nullable: true),
-                    AttendanceStatus = table.Column<bool>(nullable: false)
+                    AttendanceStatus = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {

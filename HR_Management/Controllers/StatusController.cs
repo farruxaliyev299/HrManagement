@@ -20,7 +20,8 @@ namespace HR_Management.Controllers
         {
             StatusVM statusVM = new StatusVM
             {
-                Statuses = _context.Statuses.ToList()
+                Statuses = _context.Statuses.ToList(),
+                Employees = _context.Users.ToList()
             };
             ViewBag.ActivePage = "status";
             return View(statusVM);
@@ -56,6 +57,10 @@ namespace HR_Management.Controllers
             if (statusDb == null)
             {
                 return NotFound();
+            }
+            if(_context.Users.Any(user => user.StatusId == id))
+            {
+                return RedirectToAction("Index");
             }
             _context.Statuses.Remove(statusDb);
             await _context.SaveChangesAsync();

@@ -18,14 +18,14 @@
                         </g>
                     </svg>
                 </button>
-                <h3>Add Employee</h3>
+                <h3>Add Hr Admin</h3>
             </div>
         </div>
         <div class="dashboard-content">
             <div class="row">
                 <div class="dl-table table-responsive pb-3 col-lg-12">
                     <form class="row g-3" method="post" enctype="multipart/form-data" style="padding: 10px 5px">
-                        <div class="input-group gap-3">
+                        <div class="input-group gap-3" id="datepicker">
                             <input asp-for="FullName" class="form-control" placeholder="Full Name">
                             <input asp-for="PhoneNumber" class="form-control" placeholder="Contact Phone">
                         </div>
@@ -33,10 +33,10 @@
                             <span asp-validation-for="FullName" class="text-danger"></span>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
-                        @*<div class="input-group gap-3 mt-2">
-                            <select class="form-control" asp-for="DepartmentId" asp-items="new SelectList((List<Gender>)ViewBag.Department,nameof(Department.Id),nameof(Department.DepartmentName))"></select>
-                            <select class="form-control" asp-for="DesignationId" asp-items="new SelectList((List<Gender>)ViewBag.Designation,nameof(Designation.Id),nameof(Designation.DesignationName))"></select>
-                            </div>*@
+                        <div class="input-group gap-3 mt-2">
+                            <select class="form-control" asp-for="DepartmentId" asp-items="new SelectList((List<Department>)ViewBag.Department,nameof(Department.Id),nameof(Department.DepartmentName))"></select>
+                            @*<select class="form-control" asp-for="DesignationId" asp-items="new SelectList((List<Gender>)ViewBag.Designation,nameof(Designation.Id),nameof(Designation.DesignationName))"></select>*@
+                            </div>
                         <div class="input-group gap-3 mt-4">
                             <select class="form-control" asp-for="GenderId" asp-items="new SelectList((List<Gender>)ViewBag.Gender,nameof(Gender.Id),nameof(Gender.GenderName))"></select>
                             <input asp-for="BirthDate" type="text" class="form-control" placeholder="Birth Date" onfocus="(this.type='date')">
@@ -57,12 +57,25 @@
                             <input asp-for="SerialNo" class="form-control" placeholder="ID Serial Number">
                             <input asp-for="FIN" class="form-control" placeholder="FIN">
                         </div>
-                        <div class="input-group gap- mt-1">
-                            <span asp-validation-for="SerialNo" class="text-danger d-block"></span>
-                            <span asp-validation-for="FIN" class="text-danger d-block"></span>
+                        <div class="input-group gap-3 mt-1">
+                            <span asp-validation-for="SerialNo" class="text-danger"></span>
+                            <span asp-validation-for="FIN" class="text-danger"></span>
+                        </div>
+                        <div class="input-group gap-3 mt-3">
+                            <input asp-for="Salary" class="form-control" placeholder="Salary">
+                            <div class="form-check form-check-inline gap-2">
+                                <span>Is department head?</span>
+                                <div>
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                    @Html.RadioButtonFor(user => user.IsHead, "True")
+                                    <label class="form-check-label" for="inlineRadio1">No</label>
+                                    @Html.RadioButtonFor(user => user.IsHead, "False")
+                                </div>
+                            </div>
                         </div>
                         <div class="input-group gap-3 mt-1">
                             <span asp-validation-for="Salary" class="text-danger"></span>
+                            <span asp-validation-for="IsHead" class="text-danger"></span>
                         </div>
                         <div class="input-group gap-3 mt-4">
                             <label class="form-label">Add Photo</label>

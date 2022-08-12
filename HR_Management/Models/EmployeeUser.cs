@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,9 +33,6 @@ namespace HR_Management.Models
         public int StatusId { get; set; }
         public Status Status { get; set; }
 
-        //public int DesignationId { get; set; }
-        //public Designation Designation { get; set; }
-
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
@@ -45,6 +43,8 @@ namespace HR_Management.Models
         public DateTime? QuitDate { get; set; }
         public bool IsQuitted { get; set; }
         public bool IsHead { get; set; }
+
+        public List<ProjectEmployee> ProjectEmployees { get; set; }
 
         [NotMapped]
         public IFormFile Photo { get; set; }

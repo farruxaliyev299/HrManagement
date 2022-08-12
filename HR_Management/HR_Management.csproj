@@ -33,6 +33,14 @@
     <Compile Remove="Migrations\20220807204606_CreateDepartmentsTable.Designer.cs" />
     <Compile Remove="Migrations\20220808190040_CreateAttendancesTable.cs" />
     <Compile Remove="Migrations\20220808190040_CreateAttendancesTable.Designer.cs" />
+    <Compile Remove="Migrations\20220812182810_CreateProjectEmployeesTables.cs" />
+    <Compile Remove="Migrations\20220812182810_CreateProjectEmployeesTables.Designer.cs" />
+    <Compile Remove="Migrations\20220812183036_CreateProjectEmployeesTables.cs" />
+    <Compile Remove="Migrations\20220812183036_CreateProjectEmployeesTables.Designer.cs" />
+    <Compile Remove="Migrations\20220812183444_CreateProjectEmployeesTables.cs" />
+    <Compile Remove="Migrations\20220812183444_CreateProjectEmployeesTables.Designer.cs" />
+    <Compile Remove="Migrations\20220812183546_CreateProjectEmployeesTables.cs" />
+    <Compile Remove="Migrations\20220812183546_CreateProjectEmployeesTables.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

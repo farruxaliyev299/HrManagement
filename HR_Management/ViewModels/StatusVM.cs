@@ -6,5 +6,6 @@ namespace HR_Management.ViewModels
     public class StatusVM
     {
         public List<Status> Statuses { get; set; }
+        public List<EmployeeUser> Employees { get; set; }
     }
 }

@@ -47,6 +47,7 @@
             </button>
             <div class="row">
                 <div class="dl-table table-responsive">
+                    <a asp-action="Create" class="btn btn-primary">Add</a>
                     <table class="table mb-table">
                         <thead>
                             <tr>
@@ -70,18 +71,42 @@
                                     <td class="name">@emp.FullName</td>
                                     @for (int i = 1; i <= Days; i++)
                                     {
-                                        bool condition = false;
-                                        @*var day = i.ToString();
-                                            if (i < 10)
-                                            {
-                                            day = "0" + i.ToString();
-                                            }*@
+                                        bool conditionNull = true;
+                                        bool conditionHoliday = false;
+                                        List<DateTime> holidayDays = new List<DateTime>();
                                         var attendanceDb = @Model.Attendances.FindAll(atd => atd.EmployeeId == emp.Id);
+                                        if (@Model.Holidays.Count() > 0)
+                                        {
+                                            foreach (var hld in @Model.Holidays)
+                                            {
+                                                for (var dt = hld.StartDate; dt <= hld.EndDate; dt = dt.AddDays(1))
+                                                {
+                                                    holidayDays.Add(dt);
+                                                }
+                                            }
+                                        }
+                                        foreach (var day in holidayDays)
+                                        {
+                                            if (i == day.Date.Day && dateMonth == day.Month && dateYear == day.Year)
+                                            {
+                                                conditionHoliday = true;
+                                            }
+                                        }
+                                        if (conditionHoliday)
+                                        {
+                                            <td class="day">
+                                                <button class="sign-mark-dash">
+                                                    M
+                                                </button>
+                                            </td>
+                                            continue;
+                                        }
                                         foreach (var item in attendanceDb)
                                         {
-                                            if (item.Date.Day == i && item.AttendanceStatus)
+
+                                            if (item.Date.Day == i && item.AttendanceStatus == true)
                                             {
-                                                condition = true;
+                                                conditionNull = false;
                                                 <td class="day">
                                                     <button class="sign-mark-check">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
@@ -90,9 +115,9 @@
                                                     </button>
                                                 </td>
                                             }
-                                            else if (item.Date.Day == i && !item.AttendanceStatus)
+                                            else if (item.Date.Day == i && item.AttendanceStatus == false)
                                             {
-                                                condition = true;
+                                                conditionNull = false;
                                                 <td class="day">
                                                     <button class="sign-mark-cross">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -102,7 +127,7 @@
                                                 </td>
                                             }
                                         }
-                                        if (!condition)
+                                        if (conditionNull)
                                         {
                                             <td class="day">
                                                 <button class="sign-mark-dash">
@@ -112,7 +137,6 @@
                                                 </button>
                                             </td>
                                         }
-
                                     }
                                 </tr>
                             }

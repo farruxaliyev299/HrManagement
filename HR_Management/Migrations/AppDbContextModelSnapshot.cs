@@ -26,7 +26,7 @@ namespace HR_Management.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("AttendanceStatus")
+                    b.Property<bool?>("AttendanceStatus")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("Date")
@@ -240,6 +240,56 @@ namespace HR_Management.Migrations
                     b.ToTable("Holidays");
                 });
 
+            modelBuilder.Entity("HR_Management.Models.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProjectDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDone")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("HR_Management.Models.ProjectEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectEmployees");
+                });
+
             modelBuilder.Entity("HR_Management.Models.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -410,6 +460,19 @@ namespace HR_Management.Migrations
                     b.HasOne("HR_Management.Models.Status", "Status")
                         .WithMany("Employees")
                         .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HR_Management.Models.ProjectEmployee", b =>
+                {
+                    b.HasOne("HR_Management.Models.EmployeeUser", "Employee")
+                        .WithMany("ProjectEmployees")
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("HR_Management.Models.Project", "Project")
+                        .WithMany("ProjectEmployees")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

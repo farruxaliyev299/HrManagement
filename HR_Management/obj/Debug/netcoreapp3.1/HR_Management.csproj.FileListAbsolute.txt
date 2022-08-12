@@ -166,3 +166,8 @@ D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Employee
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Department\Create.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Department\Update.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Attendance\Index.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Attendance\Create.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Authentication\Login.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\Index.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\Create.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\Update.cshtml.g.cs
