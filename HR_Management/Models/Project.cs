@@ -22,6 +22,10 @@ namespace HR_Management.Models
         [Required]
         public DateTime EndDate { get; set; }
 
+        public DateTime? FinishDate { get; set; }
+
+        public bool? IsSuccesfull { get; set; }
+
         public List<ProjectEmployee> ProjectEmployees { get; set; } = new List<ProjectEmployee>();
 
         [NotMapped]

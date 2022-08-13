@@ -1,0 +1,114 @@
+﻿@using HR_Management.DAL
+@using Microsoft.AspNetCore.Identity
+@model List<Leave>
+@inject UserManager<EmployeeUser> _userManager;
+@inject AppDbContext _context;
+@{
+    EmployeeUser loggedUser = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        loggedUser = await _userManager.FindByNameAsync(User.Identity.Name);
+    }
+}
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!--Index start-->
+<section class="hr-leave">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Leave Requests</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="dl-table table-responsive col-12">
+                    <table class="table" id="sortTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th class="actions-leave">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var leave in @Model)
+                            {
+                                @if (!(@loggedUser.Id == leave.EmployeeId))
+                                {
+                                    var emp = _context.Users.Find(leave.EmployeeId);
+                                    @if (!(leave.isAccepted == true || leave.isAccepted == false))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <img src="~/assets/images/userPhotos/@emp.ProfilePhoto">
+                                            </td>
+                                            <td>@emp.FullName</td>
+                                            <td>@leave.StartDate.ToString("dd.MM.yyyy") to @leave.EndDate.ToString("dd.MM.yyyy")</td>
+                                            <td>@leave.Reason</td>
+                                            <td class="d-flex actions actions-leave">
+                                                <div class="green">
+                                                    <a asp-action="IsAccepted" asp-route-id="@leave.Id" class="success">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div class="red">
+                                                    <a asp-action="IsDenied" asp-route-id="@leave.Id" class="rejected">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Index end-->
+@section CssLeave{
+<!--Bootstrap links for Data Table-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+}
+
+@section ScriptLeave{
+<!--vendor JS-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
+<!--Data tables-->
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
+</script>
+<script>
+    $('#sortTable').DataTable();
+</script>
+}

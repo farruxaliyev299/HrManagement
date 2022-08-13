@@ -1,5 +1,6 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
 {
+    [Authorize(Roles = "HR Admin")]
     public class DepartmentController : Controller
     {
         private AppDbContext _context { get; }

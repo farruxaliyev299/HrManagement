@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     int count = 1;
-    Project projectDb = new Project();
+    List<List<ProjectEmployee>> emps = new List<List<ProjectEmployee>>();
 }
 
 <!--Index start-->
@@ -45,7 +45,6 @@
                         <tbody>
                             @foreach (var pr in @Model)
                             {
-                                projectDb = pr;
                                 <tr>
                                     <td>@count</td>
                                     <td>@pr.ProjectName</td>
@@ -53,23 +52,21 @@
                                     <td>@pr.EndDate.ToString("dd.MM.yyyy")</td>
                                     <td class="actions">
                                         <div class="green d-inline m-1">
-                                            <button class="success mb-1" data-bs-toggle="modal"
-                                                data-bs-target="@pr.Id">
+                                            <a asp-action="Team" asp-route-id="@pr.Id" class="success mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                                                     <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                                     <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
                                                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                                                 </svg>
                                                 Team
-                                            </button>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="actions">
                                         <div class="yellow d-inline m-1">
-                                            <button class="in-progress mb-1" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModaldescription">
+                                            <a asp-action="Description" asp-route-id="@pr.Id" class="in-progress mb-1">
                                                 Description
-                                            </button>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="actions">
@@ -92,6 +89,7 @@
                                     </td>
                                 </tr>
                                 count++;
+                                emps.Add(pr.ProjectEmployees.FindAll(ep => ep.ProjectId == pr.Id));
                             }
                         </tbody>
                     </table>
@@ -101,53 +99,6 @@
     </div>
 </section>
 <!--Index end-->
-<!--Team Modal-->
-<div class="modal fade" id="@projectDb.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Team Members</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group mt-2">
-                    <ul>
-                        @foreach (var emps in projectDb.ProjectEmployees.Where(emp => emp.ProjectId == projectDb.Id))
-                       {
-                           <li>@emps.Employee.FullName</li>
-                       }
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Description Modal-->
-<div class="modal fade" id="exampleModaldescription" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Project Description</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Model end-->
 @section CssProject{
 <!--Bootstrap links for Data Table-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

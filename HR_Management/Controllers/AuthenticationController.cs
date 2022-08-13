@@ -46,5 +46,11 @@ namespace HR_Management.Controllers
             }
             return RedirectToAction("Index", "Dashboard");
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login" , "Authentication");
+        }
     }
 }

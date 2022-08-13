@@ -1,6 +1,7 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Models;
 using HR_Management.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
 {
+    [Authorize(Roles = "HR Admin")]
     public class StatusController : Controller
     {
         private AppDbContext _context { get; }

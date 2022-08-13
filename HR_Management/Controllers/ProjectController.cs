@@ -1,5 +1,6 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
 {
+    [Authorize(Roles = "HR Admin")]
     public class ProjectController : Controller
     {
         private AppDbContext _context { get; }
@@ -37,18 +39,17 @@ namespace HR_Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Project project)
         {
-            if (!ModelState.IsValid)
+            if (project.EndDate.Date <= project.StartDate.Date)
             {
-                return View(project);
+                ModelState.AddModelError("EndDate", "Deadline can't be sooner than project's start date");
             }
-            if(project.EmployeeIds != null)
+            if (project.EmployeeIds != null)
             {
                 foreach (var empId in project.EmployeeIds)
                 {
                     if (!_context.Users.Any(user => user.Id == empId))
                     {
                         ModelState.AddModelError("EmployeeIds", "Employee doesn't found");
-                        return View();
                     }
                     ProjectEmployee projectEmployee = new ProjectEmployee
                     {
@@ -57,9 +58,11 @@ namespace HR_Management.Controllers
                     project.ProjectEmployees.Add(projectEmployee);
                 }
             }
-            if(project.EndDate.Date <= project.StartDate.Date)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("EndDate", "Deadline can't be sooner than project's start date");
+                ViewBag.Project = _context.Projects.Where(project => !project.isDone).ToList();
+                ViewBag.Employees = _context.Users.Where(user => !user.IsQuitted).ToList();
+
                 return View(project);
             }
             await _context.Projects.AddAsync(project);
@@ -113,6 +116,67 @@ namespace HR_Management.Controllers
                     EmployeeId = empId
                 };
                 projectDb.ProjectEmployees.Add(projectEmployee);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Team(int? id)
+        {
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            List<ProjectEmployee> ProjectEmployeeDb = new List<ProjectEmployee>();
+            foreach (var ep in _context.ProjectEmployees.ToList())
+            {
+                if(ep.ProjectId == id)
+                {
+                    ProjectEmployeeDb.Add(ep);
+                }
+            }
+            List<EmployeeUser> employees = new List<EmployeeUser>();
+            foreach (var ep in ProjectEmployeeDb)
+            {
+                employees.Add(await _context.Users.FindAsync(ep.EmployeeId));
+            }
+            return View(employees);
+        }
+
+        public async Task<IActionResult> Description(int? id)
+        {
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            var projectDb = await _context.Projects.FindAsync(id);
+            if(projectDb == null)
+            {
+                return NotFound();
+            }
+            return View(projectDb);
+        }
+
+        public async Task<IActionResult> IsDone(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var projectDb = await _context.Projects.FindAsync(id);
+            if (projectDb == null)
+            {
+                return NotFound();
+            }
+            projectDb.isDone = true;
+            projectDb.FinishDate = System.DateTime.Now;
+            if(projectDb.FinishDate < projectDb.EndDate)
+            {
+                projectDb.IsSuccesfull = true;
+            }
+            else
+            {
+                projectDb.IsSuccesfull = false;
             }
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

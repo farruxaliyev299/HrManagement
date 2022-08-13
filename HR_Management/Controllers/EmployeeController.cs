@@ -2,6 +2,7 @@
 using HR_Management.Models;
 using HR_Management.Utilities;
 using HR_Management.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
 {
+    [Authorize(Roles = "HR Admin")]
     public class EmployeeController : Controller
     {
         private AppDbContext _context { get; }
@@ -71,9 +73,9 @@ namespace HR_Management.Controllers
                 ViewBag.Department = _context.Departments.ToList();
                 return View(employeeUser);
             }
-            if (!employeeUser.Photo.CheckSize(300))
+            if (!employeeUser.Photo.CheckSize(800))
             {
-                ModelState.AddModelError("Photo", "Image size must be less than 300kb");
+                ModelState.AddModelError("Photo", "Image size must be less than 800kb");
                 ViewBag.Status = _context.Statuses.ToList();
                 ViewBag.Gender = _context.Genders.ToList();
                 ViewBag.Department = _context.Departments.ToList();
@@ -161,9 +163,9 @@ namespace HR_Management.Controllers
                 ViewBag.Department = _context.Departments.ToList();
                 return View(employeeUser);
             }
-            if (!employeeUser.Photo.CheckSize(300))
+            if (!employeeUser.Photo.CheckSize(800))
             {
-                ModelState.AddModelError("Photo", "Image size must be less than 300kb");
+                ModelState.AddModelError("Photo", "Image size must be less than 800kb");
                 ViewBag.Status = _context.Statuses.ToList();
                 ViewBag.Gender = _context.Genders.ToList();
                 ViewBag.Department = _context.Departments.ToList();
@@ -228,7 +230,7 @@ namespace HR_Management.Controllers
                 return View(employeeUser);
             }
 
-            await _userManager.AddToRoleAsync(newEmployee, "Employee");
+            await _userManager.AddToRoleAsync(newEmployee, "HR Admin");
             return RedirectToAction("Index");
         }
 
