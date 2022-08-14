@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Index";
     int count = 1;
-    List<List<ProjectEmployee>> emps = new List<List<ProjectEmployee>>();
 }
 
 <!--Index start-->
@@ -89,7 +88,6 @@
                                     </td>
                                 </tr>
                                 count++;
-                                emps.Add(pr.ProjectEmployees.FindAll(ep => ep.ProjectId == pr.Id));
                             }
                         </tbody>
                     </table>

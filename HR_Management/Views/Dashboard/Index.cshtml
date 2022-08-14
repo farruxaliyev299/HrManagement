@@ -1,4 +1,20 @@
-﻿@{
+﻿@using HR_Management.DAL
+@using Microsoft.AspNetCore.Identity
+@model List<EmployeeUser>
+@inject UserManager<EmployeeUser> _userManager
+@inject AppDbContext _context
+@{
+    EmployeeUser loggedUser = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        loggedUser = await _userManager.FindByNameAsync(User.Identity.Name);
+    }
+    var role = await _userManager.GetRolesAsync(loggedUser);
+
+    //project
+    var projects = _context.Projects.Where(pr => pr.ProjectEmployees.Any(ep => ep.EmployeeId == loggedUser.Id));
+}
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -27,168 +43,36 @@
                     <div class="dl-table table-responsive">
                         <div class="table-header d-flex justify-content-between">
                             <h5>To Do List</h5>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                            <a asp-action="AddDoList" class="btn btn-primary">
                                 Add
-                            </button>
+                            </a>
                         </div>
                         <table class="do-list">
                             <tbody>
-                                <tr class="d-flex">
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value=""
+                                @foreach (var list in _context.DoLists.Where(list => list.EmployeeId == loggedUser.Id))
+                                {
+                                    <tr class="d-flex">
+                                        <td>
+                                            <input class="form-check-input" type="checkbox" value=""
                                                id="flexCheckDefault">
-                                        <div>
-                                            <p>Daily Standup Meeting</p>
-                                            <p class="faded">Due in 2 days</p>
-                                        </div>
-                                    </td>
-                                    <td class="d-flex actions">
-                                        <div class="yellow">
-                                            <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModaledit" class="in-progress">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-pen-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="red">
-                                            <a href="#" class="rejected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            <div>
+                                                <p>@list.Title</p>
+                                                <p class="faded">@list.Description</p>
+                                            </div>
+                                        </td>
+                                        <td class="d-flex actions" style="padding-right: 20px">
+                                            <div class="red">
+                                                <a asp-action="DeleteDoList" asp-route-id="@list.Id" class="rejected">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                      fill="currentColor" class="bi bi-trash2-fill"
                                                      viewBox="0 0 16 16">
-                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value=""
-                                               id="flexCheckDefault">
-                                        <div>
-                                            <p>Daily Standup Meeting2</p>
-                                            <p class="faded">Due in 2 days</p>
-                                        </div>
-                                    </td>
-                                    <td class="d-flex actions">
-                                        <div class="yellow">
-                                            <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModaledit" class="in-progress">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-pen-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="red">
-                                            <a href="#" class="rejected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-trash2-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value=""
-                                               id="flexCheckDefault">
-                                        <div>
-                                            <p>Daily Standup Meeting3</p>
-                                            <p class="faded">Due in 2 days</p>
-                                        </div>
-                                    </td>
-                                    <td class="d-flex actions">
-                                        <div class="yellow">
-                                            <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModaledit" class="in-progress">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-pen-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="red">
-                                            <a href="#" class="rejected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-trash2-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value=""
-                                               id="flexCheckDefault">
-                                        <div>
-                                            <p>Daily Standup Meeting4</p>
-                                            <p class="faded">Due in 2 days</p>
-                                        </div>
-                                    </td>
-                                    <td class="d-flex actions">
-                                        <div class="yellow">
-                                            <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModaledit" class="in-progress">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-pen-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="red">
-                                            <a href="#" class="rejected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-trash2-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value=""
-                                               id="flexCheckDefault">
-                                        <div>
-                                            <p>Daily Standup Meeting5</p>
-                                            <p class="faded">Due in 2 days</p>
-                                        </div>
-                                    </td>
-                                    <td class="d-flex actions">
-                                        <div class="yellow">
-                                            <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModaledit" class="in-progress">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-pen-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="red">
-                                            <a href="#" class="rejected">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     fill="currentColor" class="bi bi-trash2-fill"
-                                                     viewBox="0 0 16 16">
-                                                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                        <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -211,7 +95,14 @@
                                         </div>
                                     </td>
                                     <td class="status">
-                                        <span class="in-progress">22</span>
+                                        @if (@Model.Where(emp => emp.JoinDate.Month == DateTime.Now.Month).Count() > 0)
+                                        {
+                                            <span class="in-progress">@Model.Where(emp => emp.JoinDate.Month == DateTime.Now.Month).Count()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="in-progress">0</span>
+                                        }
                                     </td>
                                 </tr>
                                 <tr class="d-flex green">
@@ -228,7 +119,14 @@
                                         </div>
                                     </td>
                                     <td class="status">
-                                        <span class="success">331</span>
+                                        @if (@Model.Where(emp => !emp.IsQuitted).Count() > 0)
+                                        {
+                                            <span class="success">@Model.Where(emp => !emp.IsQuitted).Count()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="success">0</span>
+                                        }
                                     </td>
                                 </tr>
                                 <tr class="d-flex red">
@@ -242,7 +140,19 @@
                                         </div>
                                     </td>
                                     <td class="status">
-                                        <span class="rejected">$2.8M</span>
+                                        @if (@Model.Where(emp => !emp.IsQuitted).Count() > 0)
+                                        {
+                                            double sumSalary = 0;
+                                            foreach (var emp in @Model)
+                                            {
+                                                sumSalary += emp.Salary;
+                                            }
+                                            <span class="rejected">$@sumSalary</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="rejected">$0</span>
+                                        }
                                     </td>
                                 </tr>
                                 <tr class="d-flex purple">
@@ -257,7 +167,21 @@
                                         </div>
                                     </td>
                                     <td class="status">
-                                        <span class="approved">$1.250</span>
+                                        @if (@Model.Where(emp => !emp.IsQuitted).Count() > 0)
+                                        {
+                                            double sumSalary = 0;
+                                            double avgSalary = 0;
+                                            foreach (var emp in @Model)
+                                            {
+                                                sumSalary += emp.Salary;
+                                            }
+                                            avgSalary = sumSalary / @Model.Count();
+                                            <span class="approved">$@avgSalary</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="approved">$0</span>
+                                        }
                                     </td>
                                 </tr>
                             </tbody>
@@ -328,81 +252,42 @@
                                 <tr>
                                     <th>Avatar</th>
                                     <th>Name</th>
-                                    <th>Designation</th>
+                                    <th>Department</th>
                                     <th>Performance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="avatar">
-                                        <img src="~/assets/images/user-photo.jpg">
-                                    </td>
-                                    <td class="name">Marshall Nichols</td>
-                                    <td class="designation">
-                                        UI UX Designer
-                                    </td>
-                                    <td class="performance">
-                                        <div class="d-inline-block green">
-                                            <span class="success">Good</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="avatar">
-                                        <img src="~/assets/images/user-photo.jpg">
-                                    </td>
-                                    <td class="name">Susie Willis</td>
-                                    <td class="designation">
-                                        Designer
-                                    </td>
-                                    <td class="performance">
-                                        <div class="d-inline-block yellow">
-                                            <span class="in-progress">Average</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="avatar">
-                                        <img src="~/assets/images/user-photo.jpg">
-                                    </td>
-                                    <td class="name">Francisco Vasquez</td>
-                                    <td class="designation">
-                                        Team Leader
-                                    </td>
-                                    <td class="performance">
-                                        <div class="d-inline-block red">
-                                            <span class="rejected">Weak</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="avatar">
-                                        <img src="~/assets/images/user-photo.jpg">
-                                    </td>
-                                    <td class="name">Erin Gonzales</td>
-                                    <td class="designation">
-                                        Android Developer
-                                    </td>
-                                    <td class="performance">
-                                        <div class="d-inline-block green">
-                                            <span class="success">Good</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="avatar">
-                                        <img src="~/assets/images/user-photo.jpg">
-                                    </td>
-                                    <td class="name">Ava Alexander</td>
-                                    <td class="designation">
-                                        UI UX Designer
-                                    </td>
-                                    <td class="performance">
-                                        <div class="d-inline-block yellow">
-                                            <span class="in-progress">Average</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach (var emp in @Model.Where(emp => emp.IsHead))
+                                {
+                                    <tr>
+                                        <td class="avatar">
+                                            <img src="~/assets/images//userPhotos/@emp.ProfilePhoto">
+                                        </td>
+                                        <td class="name">@emp.FullName</td>
+                                        <td class="department">
+                                            @if (_context.Departments.Count() > 0)
+                                            {
+                                                @foreach (var dep in _context.Departments.Where(dep => dep.Id == emp.DepartmentId).ToList())
+                                                {
+                                                    @dep.DepartmentName
+                                                }
+                                            }
+                                        </td>
+                                        <td class="status">
+                                            <div class="d-inline-block green">
+                                                @if (_context.Statuses.Count() > 0)
+                                                {
+                                                    @foreach (var st in _context.Statuses.Where(st => st.Id == emp.StatusId).ToList())
+                                                    {
+                                                        <span class="success">@st.StatusName</span>
+                                                    }
+                                                }
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
                             </tbody>
                         </table>
                     </div>

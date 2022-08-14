@@ -1,7 +1,8 @@
-﻿@model Holiday
+﻿@model Warning
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Warn";
 }
+
 <!--Index start-->
 <section id="hr-holiday">
     <div class="dashboard-wrapper">
@@ -18,7 +19,7 @@
                         </g>
                     </svg>
                 </button>
-                <h3>Create</h3>
+                <h3>Send Warning</h3>
             </div>
         </div>
         <div class="dashboard-content">
@@ -26,19 +27,11 @@
                 <div class="dl-table table-responsive pb-3 col-12">
                     <form class="row g-3" method="post" enctype="multipart/form-data">
                         <div class="input-group date">
-                            <input asp-for="StartDate" type="date" class="form-control">
+                            <textarea asp-for="Message" class="form-control" placeholder="Warning Message"></textarea>
                         </div>
-                        <span asp-validation-for="StartDate" class="text-danger mt-1"></span>
-                        <div class="input-group date mt-2">
-                            <input asp-for="EndDate" type="date" class="form-control">
-                        </div>
-                        <span asp-validation-for="EndDate" class="text-danger mt-1"></span>
-                        <div class="text mt-2">
-                            <input asp-for="HolidayName" type="text" class="form-control" placeholder="Holiday Name">
-                        </div>
-                        <span asp-validation-for="HolidayName" class="text-danger mt-1"></span>
+                        <span asp-validation-for="Message" class="text-danger mt-1"></span>
                         <div class="input-group gap-0 mt-3 justify-content-center">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
                             <a type="button" class="btn btn-secondary" asp-action="Index">Close</a>
                         </div>
                     </form>
@@ -48,26 +41,3 @@
     </div>
 </section>
 <!--Index end-->
-@section CssHoliday{
-<!--Bootstrap links for Data Table-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-}
-
-@section ScriptHoliday{
-<!--vendor JS-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
-</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
-</script>
-<!--Data tables-->
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
-</script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
-</script>
-<script>
-    $('#sortTable').DataTable();
-</script>
-}

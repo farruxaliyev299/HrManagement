@@ -45,6 +45,8 @@
     <Compile Remove="Migrations\20220813211318_CreateLeavesTable.Designer.cs" />
     <Compile Remove="Migrations\20220813212801_UpdateLeavesTable.cs" />
     <Compile Remove="Migrations\20220813212801_UpdateLeavesTable.Designer.cs" />
+    <Compile Remove="Migrations\20220814212827_CreateWarningsTable.cs" />
+    <Compile Remove="Migrations\20220814212827_CreateWarningsTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

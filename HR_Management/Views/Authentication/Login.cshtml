@@ -32,12 +32,13 @@
         <div class="login">
             <div class="container">
                 <h1>Login to access to<br />your account</h1>
-                <div asp-validation-summary=ModelOnly></div>
                 <div class="login-form">
-                    <form method="post">
+                    <div asp-validation-summary="ModelOnly" style="padding: 0px 30px; color: red"></div>
+                    <form method="post" class="pt-2">
                         <input asp-for="Email" placeholder="E-mail Address">
                         <input asp-for="Password" placeholder="Password">
-
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                         <div class="remember-form">
                             <input asp-for="isPersistent">
                             <span>Remember me</span>

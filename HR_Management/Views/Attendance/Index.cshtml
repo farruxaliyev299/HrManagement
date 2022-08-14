@@ -71,10 +71,39 @@
                                     <td class="name">@emp.FullName</td>
                                     @for (int i = 1; i <= Days; i++)
                                     {
-                                        bool conditionNull = true;
+                                        bool conditionNullLeave = true;
+                                        bool conditionLeave = false;
+                                        List<DateTime> leaveDays = new List<DateTime>();
+                                        var attendanceDb = @Model.Attendances.FindAll(atd => atd.EmployeeId == emp.Id);
+                                        if (@Model.Leaves.Count() > 0)
+                                        {
+                                            foreach (var lv in @Model.Leaves.Where(lv => lv.isAccepted == true && lv.EmployeeId == emp.Id))
+                                            {
+                                                for (var dt = lv.StartDate; dt <= lv.EndDate; dt = dt.AddDays(1))
+                                                {
+                                                    leaveDays.Add(dt);
+                                                }
+                                            }
+                                        }
+                                        foreach (var day in leaveDays)
+                                        {
+                                            if (i == day.Date.Day && dateMonth == day.Month && dateYear == day.Year)
+                                            {
+                                                conditionLeave = true;
+                                            }
+                                        }
+                                        if (conditionLeave)
+                                        {
+                                            <td class="day">
+                                                <button class="sign-mark-dash">
+                                                    M
+                                                </button>
+                                            </td>
+                                            continue;
+                                        }
+                                        bool conditionNullHoliday = true;
                                         bool conditionHoliday = false;
                                         List<DateTime> holidayDays = new List<DateTime>();
-                                        var attendanceDb = @Model.Attendances.FindAll(atd => atd.EmployeeId == emp.Id);
                                         if (@Model.Holidays.Count() > 0)
                                         {
                                             foreach (var hld in @Model.Holidays)
@@ -96,7 +125,7 @@
                                         {
                                             <td class="day">
                                                 <button class="sign-mark-dash">
-                                                    M
+                                                    H
                                                 </button>
                                             </td>
                                             continue;
@@ -106,7 +135,8 @@
 
                                             if (item.Date.Day == i && item.AttendanceStatus == true)
                                             {
-                                                conditionNull = false;
+                                                conditionNullHoliday = false;
+                                                conditionNullLeave = false;
                                                 <td class="day">
                                                     <button class="sign-mark-check">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
@@ -117,7 +147,8 @@
                                             }
                                             else if (item.Date.Day == i && item.AttendanceStatus == false)
                                             {
-                                                conditionNull = false;
+                                                conditionNullHoliday = false;
+                                                conditionNullLeave = false;
                                                 <td class="day">
                                                     <button class="sign-mark-cross">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -127,7 +158,7 @@
                                                 </td>
                                             }
                                         }
-                                        if (conditionNull)
+                                        if (conditionNullHoliday && conditionNullLeave)
                                         {
                                             <td class="day">
                                                 <button class="sign-mark-dash">

@@ -19,5 +19,7 @@ namespace HR_Management.DAL
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public DbSet<Leave> Leaves { get; set; }
+        public DbSet<ToDoList> DoLists { get; set; }
+        public DbSet<Warning> Warnings { get; set; }
     }
 }

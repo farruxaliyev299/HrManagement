@@ -117,7 +117,7 @@ namespace HR_Management.Controllers
                 Salary = employeeUser.Salary,
                 IsHead = employeeUser.IsHead,
                 ProfilePhoto = await employeeUser.Photo.SaveFileAsync(_env.WebRootPath, "assets", "images", "userPhotos"),
-                JoinDate = DateTime.UtcNow
+                JoinDate = DateTime.Now
             };
             if (_context.Users.Any(user => user.IsHead && employeeUser.IsHead && user.DepartmentId == employeeUser.DepartmentId))
             {
@@ -207,7 +207,7 @@ namespace HR_Management.Controllers
                 Salary = employeeUser.Salary,
                 IsHead = employeeUser.IsHead,
                 ProfilePhoto = await employeeUser.Photo.SaveFileAsync(_env.WebRootPath, "assets", "images", "userPhotos"),
-                JoinDate = DateTime.UtcNow
+                JoinDate = DateTime.Now
             };
             if (_context.Users.Any(user => user.IsHead && employeeUser.IsHead && user.DepartmentId == employeeUser.DepartmentId))
             {
@@ -250,6 +250,8 @@ namespace HR_Management.Controllers
                 Gender = employee.Gender,
                 Status = employee.Status,
                 StatusId = employee.StatusId,
+                Department = employee.Department,
+                DepartmentId = employee.DepartmentId,
                 SerialNo = employee.IdSerialNo,
                 IsHead = employee.IsHead,
                 FIN = employee.FIN,
@@ -304,14 +306,46 @@ namespace HR_Management.Controllers
             employeeDb.Gender = employeeUser.Gender;
             employeeDb.StatusId = employeeUser.StatusId;
             employeeDb.Status = employeeUser.Status;
+            employeeDb.DepartmentId = employeeUser.DepartmentId;
+            employeeDb.Department = employeeUser.Department;
             employeeDb.IsHead = employeeUser.IsHead;
             employeeDb.Salary = employeeUser.Salary;
             if(employeeDb.Photo != null)
             {
                 employeeDb.ProfilePhoto = await employeeUser.Photo.SaveFileAsync(_env.WebRootPath, "assets", "images", "userPhotos");
             }
-            await _userManager.UpdateAsync(employeeDb);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Warn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Warn(string id , Warning warning)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var empDb = await _userManager.FindByNameAsync(id);
+            if(empDb == null)
+            {
+                return NotFound();
+            }
+            Warning newWarning = new Warning
+            {
+                Message = warning.Message,
+                WarningDate = DateTime.Now,
+                EmployeeId = empDb.Id,
+                Employee = empDb
+            };
+            await _context.Warnings.AddAsync(newWarning);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Warning");
         }
 
         public async Task<IActionResult> Quit(string id)

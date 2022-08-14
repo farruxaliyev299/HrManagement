@@ -61,7 +61,7 @@
                                             <td>@emp.FullName</td>
                                             <td>@leave.StartDate.ToString("dd.MM.yyyy") to @leave.EndDate.ToString("dd.MM.yyyy")</td>
                                             <td>@leave.Reason</td>
-                                            <td class="d-flex actions actions-leave">
+                                            <td class="d-flex actions actions-leave" style="border-bottom-width: 0px">
                                                 <div class="green">
                                                     <a asp-action="IsAccepted" asp-route-id="@leave.Id" class="success">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">

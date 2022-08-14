@@ -9,5 +9,6 @@ namespace HR_Management.ViewModels
         public List<Attendance> Attendances { get; set; }
         public Attendance Attendance { get; set; }
         public List<Holiday> Holidays { get; set; }
+        public List<Leave> Leaves { get; set; }
     }
 }

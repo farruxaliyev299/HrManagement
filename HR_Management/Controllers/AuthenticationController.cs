@@ -31,12 +31,14 @@ namespace HR_Management.Controllers
             if(userDb == null)
             {
                 ModelState.AddModelError("", "Email or Password is incorrect");
-                return View(user);
             }
             var signInResult = await _signInManager.PasswordSignInAsync(userDb, user.Password , user.isPersistent, lockoutOnFailure: true);
             if (!signInResult.Succeeded)
             {
                 ModelState.AddModelError("" ,"Email or Password is incorrect");
+            }
+            if (!ModelState.IsValid)
+            {
                 return View(user);
             }
             if (signInResult.IsLockedOut)
@@ -44,7 +46,7 @@ namespace HR_Management.Controllers
                 ModelState.AddModelError("", "Too many failed attempts , Please try again in 5 minutes");
                 return View();
             }
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "ProjectDashboard");
         }
 
         public async Task<IActionResult> Logout()

@@ -28,7 +28,8 @@ namespace HR_Management.Controllers
             {
                 Attendances = _context.Attendances.ToList(),
                 Employees = _context.Users.Where(user => !user.IsQuitted).ToList(),
-                Holidays = _context.Holidays.ToList()
+                Holidays = _context.Holidays.ToList(),
+                Leaves = _context.Leaves.ToList()
             };
             return View(attendanceVM);
         }

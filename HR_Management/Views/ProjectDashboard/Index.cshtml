@@ -10,6 +10,9 @@
         loggedUser = await _userManager.FindByNameAsync(User.Identity.Name);
     }
     var role = await _userManager.GetRolesAsync(loggedUser);
+
+    //project
+    var projects = _context.Projects.Where(pr => pr.ProjectEmployees.Any(ep => ep.EmployeeId == loggedUser.Id));
 }
 @{
     ViewData["Title"] = "Index";
@@ -79,17 +82,6 @@
                                             }
                                         }
                                     </div>
-                                    <div class="employee-location d-flex">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path opacity="0.8"
-                                                  d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z"
-                                                  fill="black"></path>
-                                            <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z"
-                                                  fill="white"></path>
-                                        </svg>
-                                        <p>SF, Bay Area</p>
-                                    </div>
                                     <div class="employee-mail d-flex">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                              fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
@@ -108,7 +100,14 @@
                                                 <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                                                       fill="#2dbaa5"></path>
                                             </svg>
-                                            <h4 class="value">75</h4>
+                                            @if (projects.Count() > 0)
+                                            {
+                                                <h4 class="value">@projects.Count()</h4>
+                                            }
+                                            else
+                                            {
+                                                <h4 class="value">0</h4>
+                                            }
                                         </div>
                                         <div class="si-title mt-2">
                                             <h4>Projects</h4>
@@ -123,10 +122,17 @@
                                                 <path d="M11.4343 15.4343L7.25 11.25C6.83579 10.8358 6.16421 10.8358 5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75L11.2929 18.2929C11.6834 18.6834 12.3166 18.6834 12.7071 18.2929L18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25C17.8358 10.8358 17.1642 10.8358 16.75 11.25L12.5657 15.4343C12.2533 15.7467 11.7467 15.7467 11.4343 15.4343Z"
                                                       fill="#f66064"></path>
                                             </svg>
-                                            <h4 class="value">18</h4>
+                                            @if (projects.Where(pr => !pr.isDone).Count() > 0)
+                                            {
+                                                <h4 class="value">@projects.Where(pr => !pr.isDone).Count()</h4>
+                                            }
+                                            else
+                                            {
+                                                <h4 class="value">0</h4>
+                                            }
                                         </div>
                                         <div class="si-title mt-2">
-                                            <h4>Ongoing</h5>
+                                            <h4>Ongoing</h4>
                                         </div>
                                     </div>
                                     <div class="statistic-item green">
@@ -138,10 +144,17 @@
                                                 <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                                                       fill="#2dbaa5"></path>
                                             </svg>
-                                            <h4 class="value">30</h4>
+                                            @if (projects.Where(pr => pr.IsSuccesfull == true).Count() > 0)
+                                            {
+                                                <h4 class="value">@projects.Where(pr => pr.IsSuccesfull == true).Count()</h4>
+                                            }
+                                            else
+                                            {
+                                                <h4 class="value">0</h4>
+                                            }
                                         </div>
                                         <div class="si-title mt-2">
-                                            <h4>Succeded</h5>
+                                            <h4>Succeded</h4>
                                         </div>
                                     </div>
                                     <div class="statistic-item red">
@@ -153,10 +166,17 @@
                                                 <path d="M11.4343 15.4343L7.25 11.25C6.83579 10.8358 6.16421 10.8358 5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75L11.2929 18.2929C11.6834 18.6834 12.3166 18.6834 12.7071 18.2929L18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25C17.8358 10.8358 17.1642 10.8358 16.75 11.25L12.5657 15.4343C12.2533 15.7467 11.7467 15.7467 11.4343 15.4343Z"
                                                       fill="#f66064"></path>
                                             </svg>
-                                            <h4 class="value">5</h4>
+                                            @if (projects.Where(pr => pr.IsSuccesfull == false).Count() > 0)
+                                            {
+                                                <h4 class="value">@projects.Where(pr => pr.IsSuccesfull == false).Count()</h4>
+                                            }
+                                            else
+                                            {
+                                                <h4 class="value">0</h4>
+                                            }
                                         </div>
                                         <div class="si-title mt-2">
-                                            <h4>Failed</h5>
+                                            <h4>Delayed</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +247,7 @@
                             <div class="form-header">
                                 <h4>Leave Request</h4>
                             </div>
-                            <form asp-action="Create" asp-controller="LeaveRequest" class="row g-3 mt-2">
+                            <form asp-action="Index" method="post" class="row g-3 mt-2">
                                 <div class="mt-3 gap-2 col-12">
                                     <input asp-for="StartDate" type="text" class="form-control" placeholder="Leave Start Date" onfocus="(this.type='date')">
                                     <input asp-for="EndDate" type="text" class="form-control mt-3" placeholder="Leave End Date" onfocus="(this.type='date')">
@@ -241,6 +261,7 @@
                                     <input asp-for="EmployeeId" type="hidden" value="@loggedUser.Id" />
                                     <button type="submit" class="btn btn-primary">Send Request</button>
                                 </div>
+                                <div asp-validation-summary="ModelOnly" style="color: red"></div>
                             </form>
                         </div>
                     </div>
@@ -298,41 +319,19 @@
                         </div>
                         <table class="do-list leave-request">
                             <tbody>
-                                <tr class="d-flex">
-                                    <td>
-                                        <div>
-                                            <p class="rejected">Your mum is fat</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <div>
-                                            <p class="rejected">Looking for your Mum</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <div>
-                                            <p class="rejected">Company Gathering</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <div>
-                                            <p class="rejected">Cought Cold</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="d-flex">
-                                    <td>
-                                        <div>
-                                            <p class="rejected">Yearly Leave</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach (var warning in _context.Warnings.Where(wr => wr.EmployeeId == @loggedUser.Id))
+                                {
+                                    <tr class="d-flex red" style="background-color: #ffe2e5 ; margin: 0px 10px ; border-radius: 0.42rem">
+                                            <td>
+                                                <div>
+                                                    <p class="rejected">@warning.Message</p>
+                                                </div>
+                                            </td>
+                                            <td class="status">
+                                                <span class="rejected">@warning.WarningDate.ToString("dd.MM.yyyy")</span>
+                                            </td>
+                                        </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

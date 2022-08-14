@@ -175,3 +175,6 @@ D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\ProjectDashboard\Index.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\Description.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\LeaveRequest\Index.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\AddDoList.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Warning\Index.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Warn.cshtml.g.cs
