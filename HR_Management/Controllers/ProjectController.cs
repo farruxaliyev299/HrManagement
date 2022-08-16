@@ -20,9 +20,18 @@ namespace HR_Management.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.ActivePage = "project";
             ViewBag.Project = _context.Projects.Where(project => !project.isDone).ToList();
             ViewBag.Employees = _context.Users.Where(user => !user.IsQuitted).ToList();
             List<Project> projects = _context.Projects.Where(project => !project.isDone).ToList();
+            return View(projects);
+        }
+
+        public IActionResult History()
+        {
+            ViewBag.ActivePage = "history";
+
+            List<Project> projects = _context.Projects.Where(pr => pr.isDone).ToList();
             return View(projects);
         }
 

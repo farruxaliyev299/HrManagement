@@ -234,36 +234,45 @@ namespace HR_Management.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
             ViewBag.Status = _context.Statuses.ToList();
             ViewBag.Gender = _context.Genders.ToList();
             ViewBag.Department = _context.Departments.ToList();
-            var employee = await _userManager.FindByNameAsync(id);
-            UpdateEmployeeUserVM employeeUser = new UpdateEmployeeUserVM
+            if(id == null)
             {
-                FullName = employee.UserName,
-                Email = employee.Email,
-                PhoneNumber = employee.PhoneNumber,
-                BirthDate = employee.BirthDate,
-                GenderId = employee.GenderId,
-                Gender = employee.Gender,
-                Status = employee.Status,
-                StatusId = employee.StatusId,
-                Department = employee.Department,
-                DepartmentId = employee.DepartmentId,
-                SerialNo = employee.IdSerialNo,
-                IsHead = employee.IsHead,
-                FIN = employee.FIN,
-                Salary = employee.Salary,
-                ProfilePhoto = employee.ProfilePhoto
-            };
-            return View(employeeUser);
+                return BadRequest();
+            }
+            var employeeDb = await _userManager.FindByIdAsync(id);
+            if(employeeDb == null)
+            {
+                return NotFound();
+            }
+            //EmployeeUser employeeUser = new EmployeeUser
+            //{
+            //    FullName = employee.UserName,
+            //    Email = employee.Email,
+            //    PhoneNumber = employee.PhoneNumber,
+            //    BirthDate = employee.BirthDate,
+            //    GenderId = employee.GenderId,
+            //    Gender = employee.Gender,
+            //    Status = employee.Status,
+            //    StatusId = employee.StatusId,
+            //    Department = employee.Department,
+            //    DepartmentId = employee.DepartmentId,
+            //    IdSerialNo = employee.IdSerialNo,
+            //    IsHead = employee.IsHead,
+            //    FIN = employee.FIN,
+            //    Salary = employee.Salary,
+            //    ProfilePhoto = employee.ProfilePhoto
+            //};
+            return View(employeeDb);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(UpdateEmployeeUserVM employeeUser)
+        public async Task<IActionResult> Update(EmployeeUser employeeUser)
         {
             if (!ModelState.IsValid)
             {
@@ -272,7 +281,7 @@ namespace HR_Management.Controllers
                 ViewBag.Department = _context.Departments.ToList();
                 return View(employeeUser);
             }
-            EmployeeUser employeeDb = await _userManager.FindByEmailAsync(employeeUser.Email);
+            EmployeeUser employeeDb = await _context.Users.FindAsync(employeeUser.Id);
             if(employeeDb == null)
             {
                 return NotFound();
@@ -298,9 +307,10 @@ namespace HR_Management.Controllers
             employeeDb.FullName = employeeUser.FullName;
             employeeDb.UserName = userName;
             employeeDb.Email = employeeUser.Email;
+            //employeeDb.NormalizedEmail = employeeUser.Email.ToUpper();
             employeeDb.BirthDate = employeeUser.BirthDate;
             employeeDb.PhoneNumber = employeeUser.PhoneNumber;
-            employeeDb.IdSerialNo = employeeUser.SerialNo;
+            employeeDb.IdSerialNo = employeeUser.IdSerialNo;
             employeeDb.FIN = employeeUser.FIN;
             employeeDb.GenderId = employeeUser.GenderId;
             employeeDb.Gender = employeeUser.Gender;
@@ -331,7 +341,7 @@ namespace HR_Management.Controllers
             {
                 return BadRequest();
             }
-            var empDb = await _userManager.FindByNameAsync(id);
+            var empDb = await _userManager.FindByIdAsync(id);
             if(empDb == null)
             {
                 return NotFound();
@@ -353,7 +363,7 @@ namespace HR_Management.Controllers
             ViewBag.Status = _context.Statuses.ToList();
             ViewBag.Gender = _context.Genders.ToList();
             ViewBag.Department = _context.Departments.ToList();
-            var employee = await _userManager.FindByNameAsync(id);
+            var employee = await _userManager.FindByIdAsync(id);
             employee.IsQuitted = true;
             employee.IsHead = false;
             employee.QuitDate = DateTime.UtcNow;

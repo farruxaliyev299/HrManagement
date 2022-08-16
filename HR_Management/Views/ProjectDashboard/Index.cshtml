@@ -202,7 +202,7 @@
                             </div>
                             <div class="detail-item d-flex gap-5">
                                 <p class="approved">Birth Date</p>
-                                <p class="detail-value">@loggedUser.BirthDate.Date</p>
+                                <p class="detail-value">@loggedUser.BirthDate.ToString("dd.MM.yyyy")</p>
                             </div>
                             <div class="detail-item d-flex gap-5">
                                 <p class="approved">Email</p>
@@ -271,7 +271,7 @@
                         <div class="table-header d-flex justify-content-between leave-header">
                             <h4>Requests</h4>
                         </div>
-                        <table class="do-list leave-request">
+                        <table class="do-list leave-request table-responsive">
                             <tbody>
                                 @if (_context.Leaves.Where(l => l.EmployeeId == loggedUser.Id).Count() > 0)
                                 {
@@ -281,6 +281,11 @@
                                             <td>
                                                 <div>
                                                     <p class="approved">@leave.Reason</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p>@leave.StartDate.ToString("dd.MM.yyyy") to @leave.EndDate.ToString("dd.MM.yyyy")</p>
                                                 </div>
                                             </td>
                                             <td class="d-flex actions">
@@ -317,7 +322,7 @@
                         <div class="table-header d-flex justify-content-between leave-header">
                             <h4>Warnings</h4>
                         </div>
-                        <table class="do-list leave-request">
+                        <table class="do-list leave-request table-responsive">
                             <tbody>
                                 @foreach (var warning in _context.Warnings.Where(wr => wr.EmployeeId == @loggedUser.Id))
                                 {

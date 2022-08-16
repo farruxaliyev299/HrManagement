@@ -1,5 +1,6 @@
 ﻿@using HR_Management.DAL
 @using Microsoft.AspNetCore.Identity
+@using System.Drawing
 @model List<EmployeeUser>
 @inject UserManager<EmployeeUser> _userManager
 @inject AppDbContext _context
@@ -12,7 +13,35 @@
     var role = await _userManager.GetRolesAsync(loggedUser);
 
     //project
-    var projects = _context.Projects.Where(pr => pr.ProjectEmployees.Any(ep => ep.EmployeeId == loggedUser.Id));
+    var projects = _context.Projects.Where(pr => pr.ProjectEmployees.Any(ep => ep.EmployeeId == loggedUser.Id)).ToList();
+    var departments = _context.Departments.ToList();
+    var employees = _context.Users.Where(user => !user.IsQuitted).ToList();
+
+
+    var genders = _context.Genders.ToList();
+
+    int male = 0;
+    int female = 0;
+
+    foreach (var emp in employees)
+    {
+        if (emp.GenderId == 1)
+        {
+            male++;
+        }
+        if (emp.GenderId == 2)
+        {
+            female++;
+        }
+    }
+
+    double malePercentage = male * 100 / employees.Count();
+    double femalePercentage = female * 100 / employees.Count();
+
+
+
+    //random color
+    Random rnd = new Random();
 }
 @{
     ViewData["Title"] = "Index";
@@ -201,23 +230,23 @@
                 <div class="col-xl-4 col-12">
                     <div class="dl-table">
                         <div class="table-header d-flex justify-content-between">
-                            <h5>Income Analysis</h5>
+                            <h5>Departments Overview</h5>
                         </div>
                         <canvas id="doughnut-chart" width="1000px" height="562.5px">
                         </canvas>
-                        <div class="percentages">
-                            <div class="percentage-item d-flex yellow">
-                                <p class="in-progress">Design</p>
-                                <span class="in-progress">84.60%</span>
-                            </div>
-                            <div class="percentage-item d-flex purple">
-                                <p class="approved">Developer</p>
-                                <span class="approved">15.40%</span>
-                            </div>
-                            <div class="percentage-item d-flex red">
-                                <p class="rejected">CEO</p>
-                                <span class="rejected">5.10%</span>
-                            </div>
+                        <div class="percentages table-responsive">
+                            @if (departments.Count() > 0)
+                            {
+                                @foreach (var dep in departments)
+                                {
+                                    <div class="percentage-item d-flex yellow">
+                                        <p>@dep.DepartmentName :</p>
+                                        <span>@dep.DepartmentCount</span>
+                                    </div>
+                                }
+                            }
+
+
                         </div>
                     </div>
                 </div>
@@ -232,11 +261,11 @@
                         <div class="percentages">
                             <div class="percentage-item d-flex green">
                                 <p class="success">Male</p>
-                                <span class="success">56%</span>
+                                <span class="success">@malePercentage%</span>
                             </div>
                             <div class="percentage-item d-flex yellow">
                                 <p class="in-progress">Female</p>
-                                <span class="in-progress">44%</span>
+                                <span class="in-progress">@femalePercentage%</span>
                             </div>
                         </div>
                     </div>
@@ -302,6 +331,71 @@
 <!--vendor JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="~/assets/js/vendors/linechart.js"></script>
-<script src="~/assets/js/vendors/doughnutchart.js"></script>
-<script src="~/assets/js/vendors/piechart.js"></script>
+@*<script src="~/assets/js/vendors/doughnutchart.js"></script>*@
+@*<script src="~/assets/js/vendors/piechart.js"></script>*@
+<script>
+        //doughnut-chart
+        new Chart(document.getElementById("doughnut-chart"), {
+        type: 'doughnut',
+        data: {
+           @Html.Raw("labels: [")
+           @foreach (var dep in departments)
+           {
+               @Html.Raw(Json.Serialize(dep.DepartmentName) + ",")
+           }
+           @Html.Raw("],")
+           @Html.Raw("datasets: [")
+           @Html.Raw("{ label : " + Json.Serialize("Departments Overview") + ",")
+           @Html.Raw("backgroundColor :") @for(int i=0;i<departments.Count();i++)
+                                            {
+                                                @if(i==0){
+                                                    @Html.Raw("[ ")
+                                                }
+                                                @Html.Raw(Json.Serialize(@String.Format("#{0:X6}", rnd.Next(0x1000000))) + ",")
+                                                if(i == departments.Count()-1){
+                                                    @Html.Raw("],")
+                                                }
+                                            }
+           @Html.Raw("data :") @for(int i=0;i<departments.Count();i++)
+                                            {
+                                                @if(i==0){
+                                                    @Html.Raw("[ ")
+                                                }
+                                                @Html.Raw(departments[i].DepartmentCount + ",")
+                                                if(i == departments.Count()-1){
+                                                    @Html.Raw("]")
+                                                }
+                                            }
+        @Html.Raw("}]")
+        },
+        options: {
+          title: {
+            display: true
+          }
+        }
+    });
+
+    //pie-chart
+    new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+           @Html.Raw("labels: [")
+           @foreach (var gen in genders)
+           {
+               @Html.Raw(Json.Serialize(gen.GenderName) + ",")
+           }
+           @Html.Raw("],")
+           @Html.Raw("datasets: [")
+           @Html.Raw("{ label : " + Json.Serialize("Gender Distirbution") + ",")
+           backgroundColor: ["#2dbaa5", "#ffce6f"],
+           @Html.Raw("data :" + "[" + male + "," + female + "," + "]")
+        @Html.Raw("}]")
+        },
+    options: {
+      title: {
+        display: true
+      }
+    }
+    });
+</script>
 }

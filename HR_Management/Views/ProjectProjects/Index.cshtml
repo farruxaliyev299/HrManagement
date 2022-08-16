@@ -1,0 +1,104 @@
+﻿@model List<Project>
+@{
+    ViewData["Title"] = "Index";
+    int count = 1;
+}
+
+<!--Index start-->
+<section class="pr-project">
+    <div class="dashboard-wrapper">
+        <div class="dashboard-header">
+            <div class="left-header">
+                <button class="navbar-toggler">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="34px" height="34px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="#d0d3d6" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <rect fill="#3445e5" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                            <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                  fill="#3445e5" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </button>
+                <h3>Projects List</h3>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="row">
+                <div class="dl-table table-responsive col-12">
+                    <table class="table" id="sortTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project Name</th>
+                                <th>Start Date</th>
+                                <th>Deadline</th>
+                                <th>Team</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() > 0)
+                            {
+                                @foreach (var pr in @Model)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@pr.ProjectName</td>
+                                        <td>@pr.StartDate.ToString("dd.MM.yyyy")</td>
+                                        <td>@pr.EndDate.ToString("dd.MM.yyyy")</td>
+                                        <td class="actions">
+                                            <div class="green d-inline m-1">
+                                                <a asp-action="Team" asp-route-id="@pr.Id" class="success mb-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                                                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                                    </svg>
+                                                    Team
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="actions">
+                                            <div class="yellow d-inline m-1">
+                                                <a asp-action="Description" asp-route-id="@pr.Id" class="in-progress mb-1">
+                                                    Description
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Index end-->
+@section CssProject{
+<!--Bootstrap links for Data Table-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+}
+
+@section ScriptProject{
+<!--vendor JS-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
+<!--Data tables-->
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
+</script>
+<script>
+    $('#sortTable').DataTable();
+</script>
+}
