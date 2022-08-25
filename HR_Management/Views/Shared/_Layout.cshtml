@@ -27,6 +27,7 @@
     @RenderSection("CssDepartment" , false)
     @RenderSection("CssLeave" , false)
     @RenderSection("CssWarning" , false)
+    @RenderSection("CssChat" , false)
     @RenderSection("CssLogin" , false)
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -518,6 +519,7 @@
     @RenderSection("ScriptLeave" , false)
     @RenderSection("ScriptWarning" , false)
     @RenderSection("ScriptStatus" , false)
+    @RenderSection("ScriptChat" , false)
 
     <!--JQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" integrity="sha512-FOhq9HThdn7ltbK8abmGn60A/EMtEzIzv1rvuh+DqzJtSGq8BRdEN0U+j0iKEIffiw/yEtVuladk6rsG4X6Uqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -526,6 +528,37 @@
     <!--Vendor JS-->
     <script src="~/assets/js/vendors/sweet.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--SignalR-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+                                .withUrl("/mercuryHub")
+                                .build();
+
+        connection.start();
+
+        connection.on("showAsOnline", function(id){
+            let element = document.getElementById(id);
+
+            $(element).find(".fas").removeClass("chat-offline");
+            $(element).find(".fas").addClass("chat-online");
+
+            console.log($(element).find(".fas"));
+        })
+
+        connection.on("showAsOffline", function(id){
+            let element = document.getElementById(id);
+
+            $(element).find(".fas").removeClass("chat-online");
+            $(element).find(".fas").addClass("chat-offline");
+
+            console.log($(element).find(".fas"));
+        })
+    </script>
 </body>
 
 </html>

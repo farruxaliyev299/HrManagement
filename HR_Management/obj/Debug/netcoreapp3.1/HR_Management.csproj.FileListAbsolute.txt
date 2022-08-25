@@ -81,7 +81,6 @@ D:\.NET\HR_Management\HR_Management\bin\Debug\netcoreapp3.1\ru\Microsoft.CodeAna
 D:\.NET\HR_Management\HR_Management\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\.NET\HR_Management\HR_Management\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\.NET\HR_Management\HR_Management\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\HR_Management.csproj.AssemblyReference.cache
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\HR_Management.GeneratedMSBuildEditorConfig.editorconfig
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\HR_Management.AssemblyInfoInputs.cache
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\HR_Management.AssemblyInfo.cs
@@ -182,3 +181,5 @@ D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\ProjectP
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\ProjectProjects\Team.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\ProjectProjects\Description.cshtml.g.cs
 D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Project\History.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\obj\Debug\netcoreapp3.1\Razor\Views\Chat\Index.cshtml.g.cs
+D:\.NET\HR_Management\HR_Management\bin\Debug\netcoreapp3.1\libman.json

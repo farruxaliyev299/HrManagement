@@ -1,4 +1,5 @@
 ﻿using HR_Management.DAL;
+using HR_Management.Hubs;
 using HR_Management.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,8 @@ namespace HR_Management
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +76,8 @@ namespace HR_Management
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Authentication}/{action=Login}/{id?}");
+
+                endpoints.MapHub<MercuryHub>("/mercuryHub");
             });
         }
     }

@@ -44,6 +44,9 @@ namespace HR_Management.Models
         public bool IsQuitted { get; set; }
         public bool IsHead { get; set; }
 
+        public string ConnectionId { get; set; }
+        public DateTime? DisconnectedAt { get; set; }
+
         public List<ProjectEmployee> ProjectEmployees { get; set; }
 
         [NotMapped]
