@@ -304,8 +304,17 @@ img {
         .bg-illustration img {
             width: 100px;
             height: auto;
-            margin-left: 100px !important;
+            /*margin-left: 100px !important;*/
+            margin-left: 0px;
             text-align: center;
+        }
+
+        .bg-illustration h1{
+            display: none;
+        }
+
+        .bg-illustration .login-logo{
+            justify-content: center;
         }
 
         .bg-illustration .burger-btn {

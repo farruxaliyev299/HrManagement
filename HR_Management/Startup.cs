@@ -1,6 +1,7 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Hubs;
 using HR_Management.Models;
+using HR_Management.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +53,9 @@ namespace HR_Management
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             });
+
+            Constants.EmailAddress = _config["Gmail:MailAddress"];
+            Constants.Password = _config["Gmail:Password"];
 
             services.AddSignalR();
         }

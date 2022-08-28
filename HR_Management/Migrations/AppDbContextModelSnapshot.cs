@@ -330,6 +330,34 @@ namespace HR_Management.Migrations
                     b.ToTable("ProjectEmployees");
                 });
 
+            modelBuilder.Entity("HR_Management.Models.SendMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FromUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromUserId");
+
+                    b.HasIndex("ToUserId");
+
+                    b.ToTable("SendMessages");
+                });
+
             modelBuilder.Entity("HR_Management.Models.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -560,6 +588,17 @@ namespace HR_Management.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HR_Management.Models.SendMessage", b =>
+                {
+                    b.HasOne("HR_Management.Models.EmployeeUser", "FromUser")
+                        .WithMany()
+                        .HasForeignKey("FromUserId");
+
+                    b.HasOne("HR_Management.Models.EmployeeUser", "ToUser")
+                        .WithMany()
+                        .HasForeignKey("ToUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

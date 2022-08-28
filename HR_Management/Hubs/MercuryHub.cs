@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HR_Management.Hubs
 {
-    public class MercuryHub:Hub
+    public class MercuryHub : Hub
     {
         private UserManager<EmployeeUser> _userManager { get; }
 
@@ -23,7 +23,6 @@ namespace HR_Management.Hubs
                 if (loggedUser != null)
                 {
                     loggedUser.ConnectionId = Context.ConnectionId;
-                    loggedUser.DisconnectedAt = null;
                 }
                 var result = _userManager.UpdateAsync(loggedUser).Result;
 
@@ -48,6 +47,26 @@ namespace HR_Management.Hubs
                 Clients.All.SendAsync("showAsOffline", loggedUser.Id);
             }
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task SendPrivateMessage(string id, string message)
+        {
+            EmployeeUser user = _userManager.FindByIdAsync(id).Result;
+            if (user != null)
+            {
+                if (user.ConnectionId != null)
+                {
+                    await Clients.Client(user.ConnectionId).SendAsync("receivePrivateMessage", user.Id, user.FullName, message);
+                }
+            }
+        }
+
+        public async Task SendMessageInbox(string text, string TUserId)
+        {
+            var TUser = await _userManager.FindByIdAsync(TUserId);
+            var FUser = await _userManager.FindByNameAsync(Context.User.Identity.Name);
+            var sentAt = DateTime.Now;
+            await Clients.Clients(TUser.ConnectionId, FUser.ConnectionId).SendAsync("ReceiveMessage", text, sentAt, FUser.Id);
         }
     }
 }

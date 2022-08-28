@@ -10,7 +10,12 @@
     {
         loggedUser = await _userManager.FindByNameAsync(User.Identity.Name);
     }
-    var role = await _userManager.GetRolesAsync(loggedUser);
+    
+    if(_context.Users.Count() > 0)
+    {
+        List<string> role = new List<string>(await _userManager.GetRolesAsync(loggedUser));
+    }
+    
 
     //project
     var projects = _context.Projects.Where(pr => pr.ProjectEmployees.Any(ep => ep.EmployeeId == loggedUser.Id)).ToList();

@@ -41,6 +41,11 @@
     <link rel="stylesheet" href="~/assets/css/styles.css">
     <!--Site Icon-->
     <link rel="icon" href="~/assets/images/logo/logo-letter.png">
+    <style>
+        .left-sidebar::-webkit-scrollbar{
+            width: 0px !important;
+        }
+    </style>
     <title>Mercury | HR Dashboard</title>
 </head>
 
@@ -79,7 +84,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="chat.html">
+                            <a class="nav-link" asp-controller="Chat" asp-action="Index">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                      width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -119,7 +124,7 @@
     </header>
     <!--Header end-->
     <!--Sidebar start-->
-    <div class="left-sidebar">
+    <div class="left-sidebar" style="overflow-y:scroll; scrollbar-width: 0px;">
         <aside class="sidebar-user">
             <div class="user-photo">
                 <img src="~/assets/images/userPhotos/@loggedUser.ProfilePhoto">
@@ -557,6 +562,151 @@
             $(element).find(".fas").addClass("chat-offline");
 
             console.log($(element).find(".fas"));
+        })
+
+        $(".user-data").click(function (e) {
+            e.preventDefault();
+            let imageData = $(this).attr("data-photo");
+            let imageWorker = $("#avatar-image").attr("src", `/upload/employee/${imageData}`)
+            let connectionAtData = $(this).attr("data-connectionAt")
+            let connectionAtText = $("#connectionAt").text(`Lastest active: ${connectionAtData} mins ago`);
+            let userName = $(this).attr("data-messagefrom")
+            let id = $(this).attr("data-id");
+            let fullname = $(this).attr("data-name");
+            let url = $(this).attr("href");
+            let messageList = $('.message-list')
+            messageList.empty();
+            $("#idInput").val(id);
+            $("#userInput").text(fullname)
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(id),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log(response)
+                        return;
+                    }
+                    return response.json();
+                })
+
+                .then(data => {
+                    var temp = ""
+                    data.forEach(x => {
+                        let check = false;
+                        if(id === x.fromUserId){
+                            check = true;
+                        }
+
+                        if(!check){
+                            temp += `<div class="chat-message-right pb-4">
+                                    <div>
+                                        <div class="text-muted small text-nowrap mt-2">
+                                            ${x.createdAt.slice(11, 16)}:${userName}
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        ${x.text}
+                                    </div>
+                                </div>`;
+                        }
+                        else{
+                            temp += `<div class="chat-message-left pb-4">
+                                    <div>
+                                        <div class="text-muted small text-nowrap mt-2">
+                                            ${x.createdAt.slice(11, 16)}:${fullname}
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        ${x.text}
+                                    </div>
+                                </div>`;
+                        }
+                        
+
+                                //` <li class="clearfix">
+                                //    <div class="message-data">
+                                //        <span class="message-data-time">${x.createdAt.slice(11, 16)}:${userName}</span>
+                                //    </div>
+                                //    <div class="message other-message float-left">${x.text}</div>
+                                //</li>`
+
+                    })
+                    messageList.append(temp);
+                })
+        })
+
+        $("#sendButton").click(function (e) {
+            e.preventDefault();
+            let id = $("#idInput").val();
+            let message = $("#messageInput").val();
+            let url = $(this).attr("href")
+            connection.invoke("SendPrivateMessage", id, message)
+            connection.invoke("SendMessageInbox", message, id)
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ "Text": message, "ToUserId": id }),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log(response)
+                        return;
+                    }
+                    return response;
+                });
+            $("#messageInput").val("");
+
+        })
+
+        connection.on("receivePrivateMessage", function (id, name, message) {
+            console.log(this.id, this.name, this.message)
+        })
+
+        connection.on("ReceiveMessage", function (message, date, fromId) {
+            let messageList = $('.message-list')
+            var temp = '';
+            let id = $("#idInput").val();
+            let name = $("#userInput").text()
+
+            if(fromId == id){
+                var temp = `<div class="chat-message-left pb-4">
+                                    <div>
+                                        <div class="text-muted small text-nowrap mt-2">
+                                            ${date.slice(11, 16)}:${name}
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        ${message}
+                                    </div>
+                                </div>`;
+            }
+            else{
+                var temp = `<div class="chat-message-right pb-4">
+                                    <div>
+                                        <div class="text-muted small text-nowrap mt-2">
+                                            ${date.slice(11, 16)}:You
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        ${message}
+                                    </div>
+                                </div>`;
+            }
+
+
+                                //`<li class="clearfix">
+                                //    <div class="message-data">
+                                //        <span class="message-data-time">${date.slice(11, 16)}</span>
+                                //    </div>
+                                //    <div class="message other-message float-left">${message}</div>
+                                //</li>`
+            messageList.append(temp);
         })
     </script>
 </body>

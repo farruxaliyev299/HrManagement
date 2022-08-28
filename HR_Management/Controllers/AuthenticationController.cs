@@ -1,8 +1,10 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Models;
+using HR_Management.Utilities;
 using HR_Management.ViewModels.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
@@ -53,6 +55,81 @@ namespace HR_Management.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login" , "Authentication");
+        }
+
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgetPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return BadRequest();
+
+            var isExists = await _userManager.Users.FirstOrDefaultAsync(x => x.IsQuitted == false && x.Email == email);
+            if (isExists == null)
+                return RedirectToAction("error", "dashboard");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(isExists);
+
+            var link = Url.Action("ResetPassword", "Authentication", new { isExists.Id, token }, protocol: HttpContext.Request.Scheme);
+            var message = $"<a href='{link}'>Click here</a>";
+
+            await EmailUtils.SendEmailAsync(email, "Reset Password", message);
+            return RedirectToAction("Login");
+        }
+
+        public async Task<IActionResult> ResetPassword(string id, string token)
+        {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(token))
+                return BadRequest();
+
+            var isExists = await _userManager.Users.FirstOrDefaultAsync(x => x.IsQuitted == false && x.Id == id);
+
+            if (isExists == null)
+                return RedirectToAction("error", "dashboard");
+
+            ResetPasswordViewModel resetPasswordVW = new ResetPasswordViewModel
+            {
+                Email = isExists.Email,
+                Token = token
+            };
+
+            return View(resetPasswordVW);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(string id, ResetPasswordViewModel resetPasswordVW)
+        {
+
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(resetPasswordVW.Token))
+                return BadRequest();
+            if (string.IsNullOrEmpty(resetPasswordVW.NewPassword) || string.IsNullOrEmpty(resetPasswordVW.ConfirmPassword))
+            {
+                ModelState.AddModelError("", "New password and Confirm password is required");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var isExists = await _userManager.Users.FirstOrDefaultAsync(x => x.IsQuitted == false && x.Id == id);
+            if (isExists == null)
+                return RedirectToAction("error", "dashboard");
+            var result = await _userManager.ResetPasswordAsync(isExists, resetPasswordVW.Token, resetPasswordVW.NewPassword);
+            if (result.Errors == null)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View();
+            }
+
+            return RedirectToAction("Login");
         }
     }
 }

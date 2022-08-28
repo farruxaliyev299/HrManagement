@@ -21,5 +21,6 @@ namespace HR_Management.DAL
         public DbSet<Leave> Leaves { get; set; }
         public DbSet<ToDoList> DoLists { get; set; }
         public DbSet<Warning> Warnings { get; set; }
+        public DbSet<SendMessage> SendMessages { get; set; }
     }
 }
