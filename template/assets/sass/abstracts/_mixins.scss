@@ -1,0 +1,91 @@
+@mixin list-reset{
+    padding: 0px;
+    li{
+        list-style-type: none;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+}
+
+@mixin background-pallete{
+    .yellow{
+        background-color: #fff4de!important;
+    }
+    .green{
+        background-color: #c9f7f5;
+    }
+    .red{
+        background-color: #ffe2e5;
+    }
+    .purple{
+        background-color: #eee5ff;
+    }
+}
+
+@mixin text-palette{
+    .approved{
+        font-size: $fs-16;
+        font-weight: bold;
+        border-radius: 0.42rem;
+        background-color: #e3e6f8;
+        color: $third-color;
+        margin: 0;
+        padding: 5px;
+    }
+    .in-progress{
+        font-size: $fs-16;
+        font-weight: bold;
+        border-radius: 0.42rem;
+        background-color: #fff4de;
+        color: #ffa800;
+        margin: 0;
+        padding: 5px;
+    }
+    .success{
+        font-size: $fs-16;
+        font-weight: bold;
+        border-radius: 0.42rem;
+        background-color: #c9f7f5;
+        color: #2dbaa5;
+        margin: 0;
+        padding: 5px;
+    }
+    .rejected{
+        font-size: $fs-16;
+        font-weight: bold;
+        border-radius: 0.42rem;
+        background-color: #ffe2e5;
+        color: #f66064;
+        margin: 0;
+        padding: 5px;
+    }
+    .neutral{
+        font-size: $fs-16;
+        font-weight: bold;
+        border-radius: 0.42rem;
+        background-color: rgb(211, 209, 209);
+        color: $fourth-color;
+        margin: 0;
+        padding: 5px;
+    }
+}
+
+@mixin faded{
+    .faded{
+        color: #a9bad3;
+    }
+}
+
+@mixin active{
+    .active{
+        background-color: $third-color!important;
+        color: white!important;
+        border: none!important;
+    }
+}
+
+@mixin button-reset{
+    padding: 0!important;
+}

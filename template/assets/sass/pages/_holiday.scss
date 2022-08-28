@@ -1,0 +1,20 @@
+.left-header{
+    .navbar-toggler{
+        padding: 0px!important;
+    }
+}
+
+.dataTables_wrapper{
+    padding: 20px;
+}
+
+.page-item{
+    a{
+        border-left: 1px solid white !important;
+        border-right: 1px solid white !important;
+        margin: 0;
+        &:hover{
+            background-color: #23309c;
+        }
+    }
+}

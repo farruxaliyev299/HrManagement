@@ -1,0 +1,17 @@
+.day{
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    @include background-pallete;
+    @include text-palette;
+    button{
+        margin: 0;
+        background-color: $fourth-color;
+        border-radius: 0.42rem;
+    }
+    .sign-mark-cross{
+        background-color: #f66064;
+    }
+    .sign-mark-check{
+        background-color: #2dbaa5;
+    }
+}

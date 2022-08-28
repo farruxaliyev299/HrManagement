@@ -1,0 +1,52 @@
+.card{
+    border: none;
+    border-radius: 0.42rem;
+    button{
+        color: white;
+        background-color: $third-color;
+        border: none;
+        &:hover{
+            background-color: #23309c;
+        }
+    }
+}
+
+.fc-day-grid-event{
+    background-color: $third-color;
+    color: white;
+    border: none;
+    border-radius: 0.42rem;
+}
+
+.modal{
+    position: fixed;
+    z-index: 1051;
+}
+
+.modal-footer{
+    button{
+        border: none;
+    }
+    .btn-primary{
+        background-color: $third-color;
+        color: white;
+        &:hover{
+            background-color: #23309c;
+        }
+    }
+    .btn-secondary{
+        background-color: #f66064;
+        color: white;
+        &:hover{
+            background-color: #a83d41;
+        }
+    }
+}
+
+.event-name{
+    align-items: center;
+}
+
+.fc-today{
+    background-color: #eee5ff !important;
+}

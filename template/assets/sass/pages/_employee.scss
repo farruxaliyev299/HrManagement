@@ -1,0 +1,26 @@
+img{
+    width: 34px;
+    border-radius: 0.42rem;
+}
+
+.form-label{
+    margin: 0.5rem !important;
+}
+
+.form-control{
+    border-radius: 0.42rem !important;
+    border: 2px solid $third-color;
+}
+
+.modal-content{
+    background-color: $background-color;
+    *{
+        border: none;
+    }
+}
+
+.dataTable{
+    td{
+        vertical-align: middle;
+    }
+}
