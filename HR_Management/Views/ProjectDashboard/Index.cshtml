@@ -326,7 +326,7 @@
                             <tbody>
                                 @foreach (var warning in _context.Warnings.Where(wr => wr.EmployeeId == @loggedUser.Id))
                                 {
-                                    <tr class="d-flex red" style="background-color: #ffe2e5 ; margin: 0px 10px ; border-radius: 0.42rem">
+                                    <tr class="d-flex red" style="background-color: #ffe2e5 ; margin: 5px 10px ; border-radius: 0.42rem">
                                             <td>
                                                 <div>
                                                     <p class="rejected">@warning.Message</p>
