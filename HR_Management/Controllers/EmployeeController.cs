@@ -249,24 +249,6 @@ namespace HR_Management.Controllers
             {
                 return NotFound();
             }
-            //EmployeeUser employeeUser = new EmployeeUser
-            //{
-            //    FullName = employee.UserName,
-            //    Email = employee.Email,
-            //    PhoneNumber = employee.PhoneNumber,
-            //    BirthDate = employee.BirthDate,
-            //    GenderId = employee.GenderId,
-            //    Gender = employee.Gender,
-            //    Status = employee.Status,
-            //    StatusId = employee.StatusId,
-            //    Department = employee.Department,
-            //    DepartmentId = employee.DepartmentId,
-            //    IdSerialNo = employee.IdSerialNo,
-            //    IsHead = employee.IsHead,
-            //    FIN = employee.FIN,
-            //    Salary = employee.Salary,
-            //    ProfilePhoto = employee.ProfilePhoto
-            //};
             return View(employeeDb);
         }
 
@@ -307,7 +289,6 @@ namespace HR_Management.Controllers
             employeeDb.FullName = employeeUser.FullName;
             employeeDb.UserName = userName;
             employeeDb.Email = employeeUser.Email;
-            //employeeDb.NormalizedEmail = employeeUser.Email.ToUpper();
             employeeDb.BirthDate = employeeUser.BirthDate;
             employeeDb.PhoneNumber = employeeUser.PhoneNumber;
             employeeDb.IdSerialNo = employeeUser.IdSerialNo;

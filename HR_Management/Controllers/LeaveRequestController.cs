@@ -1,12 +1,15 @@
 ﻿using HR_Management.DAL;
 using HR_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HR_Management.Controllers
 {
+    [Authorize(Roles = "HR Admin")]
     public class LeaveRequestController : Controller
     {
         private AppDbContext _context { get; }
